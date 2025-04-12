@@ -1,0 +1,91 @@
+#pragma once
+
+enum class LEVEL_TYPE
+{
+	START,
+	RUNNING,
+	EDITOR,
+	TEST,
+
+	END,
+};
+
+enum class PEN_TYPE
+{
+	RED,
+	GREEN,
+	BLUE,	
+	GRAY,
+
+	END,
+};
+
+enum class BRUSH_TYPE
+{
+	GREEN,
+	RED,
+	GRAY,
+	BLUE,	
+
+	END,
+};
+
+enum class ASSET_TYPE
+{
+	TEXTURE,
+	SOUND,
+	SPRITE,
+	FLIPBOOK,
+
+	END,
+};
+
+enum class COMPONENT_TYPE
+{
+	COLLIDER,
+	FLIPBOOK_PLAYER,
+	RIGIDBODY,
+	STATE_MACHINE,
+	TILEMAP,
+
+	END,
+};
+
+
+
+enum class DEBUG_SHAPE
+{
+	RECT,
+	CIRCLE,
+	LINE,
+};
+
+
+enum class ACTOR_TYPE
+{
+	DEFAULT,
+	BACKGROUND,
+	TILE,
+	PLATFORM,
+	PLAYER,
+	ENERMY,
+	PLAYER_PROJECTILE,
+	ENERMY_PROJECTILE,
+	FORCE,
+
+
+
+
+	UI = 31,
+	END = 32
+};
+
+
+enum class TASK_TYPE
+{
+	CREATE_ACTOR,
+	DESTROY_ACTOR,
+	DELETE_ACTOR,
+	CHANGE_LEVEL,
+
+};
