@@ -73,12 +73,24 @@ Player::~Player()
 void Player::Tick()
 {	
 	Vec2 vPos = GetPos();
-		
+
 	if (KEY_PRESSED(KEY::LEFT))
 		m_RigidBody->AddForce(Vec2(-200.f, 0.f));
 	if (KEY_PRESSED(KEY::RIGHT))
 		m_RigidBody->AddForce(Vec2(200.f, 0.f));
 	
+	// -  Player가 오른쪽 화면 밖으로 못 나가게끔 처리 -
+	// 1. 카메라의 오른쪽 경계 좌표
+	Vec2 CamPos = Camera::GetInst()->GetLookAt();
+	Vec2 Res = Engine::GetInst()->GetResolution();
+	float RightLimit = CamPos.x + Res.x / 2.0f;
+
+	// 2. Player 객체의 중심이 아닌, 오른쪽 경계로 계산 처리
+	float PlayerHalfWidth = GetScale().x / 2.0f;
+
+	// 3. 오른쪽 경계 밖으로 나가면 위치 재지정
+	if (vPos.x + PlayerHalfWidth > RightLimit)
+		vPos.x = RightLimit - PlayerHalfWidth;
 
 	ChangeFlipbook();
 

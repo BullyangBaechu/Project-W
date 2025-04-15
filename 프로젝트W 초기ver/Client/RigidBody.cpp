@@ -39,17 +39,15 @@ void RigidBody::Jump()
 
 void RigidBody::FinalTick()
 {
-	if(RIGIDBODY_MODE::TOPVIEW == m_RigidBodyMode)
-		TopView();
-	else
+	if(RIGIDBODY_MODE::BELTSCROLL == m_RigidBodyMode)
 		BeltScroll();
-
+	
 	// 힘 리셋
 	m_Force = Vec2(0.f, 0.f);
 
 	
 }
-
+/*
 void RigidBody::TopView()
 {
 	// 가속도 구하기
@@ -112,6 +110,7 @@ void RigidBody::TopView()
 	vVelo.Normalize() *= m_Velocity.Length() * 1.0f;
 	DrawDebugLine(GetOwner()->GetRenderPos(), GetOwner()->GetRenderPos() + vVelo, PEN_TYPE::BLUE, 0.f);
 }
+*/
 
 void RigidBody::BeltScroll()
 {
