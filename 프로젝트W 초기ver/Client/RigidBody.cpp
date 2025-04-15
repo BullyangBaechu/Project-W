@@ -10,10 +10,10 @@ RigidBody::RigidBody()
 	, m_Mass(1.f)	
 	, m_Friction(500.f)
 	, m_Move(false)
-	, m_RigidBodyMode(RIGIDBODY_MODE::TOPVIEW)	
+	, m_RigidBodyMode(RIGIDBODY_MODE::BELTSCROLL)	
 	, m_MaxGravitySpeed(1000.f)
-	, m_GravityAccel(980.f)
-	, m_JumpSpeed(100.f)
+	, m_GravityAccel(1000.f)
+	, m_JumpSpeed(500.f)
 	, m_MaxJumpStack(3)
 	, m_CurJumpStack(0)
 {
@@ -25,10 +25,12 @@ RigidBody::~RigidBody()
 
 void RigidBody::Jump()
 {
+	// 점프 여러 번 할 수 있을지? 체크할 때 사용
 	if (m_CurJumpStack >= m_MaxJumpStack)
 		return;
 
 	m_Ground = false;
+	IsJump = true;
 	//m_GravityVelocity += -Vec2(0.f, m_JumpSpeed);
 	m_GravityVelocity    = -Vec2(0.f, m_JumpSpeed);
 
@@ -122,7 +124,7 @@ void RigidBody::BeltScroll()
 
 	// 초기속도 체크
 	// 정지상태에서 출발하는 상황이면, 초기속력을 바로 준다.
-	if (false == m_Move && m_Ground && 0.f < CurSpeed)
+	if (!m_Move && m_Ground && CurSpeed > 0.f)
 	{
 		m_Velocity += Vec2(m_Velocity).Normalize() * m_InitSpeed;
 		CurSpeed = m_Velocity.Length();
@@ -131,7 +133,7 @@ void RigidBody::BeltScroll()
 	// 마찰력으로 인한 속력 감소
 	// 땅위에 서있을때만 마찰력 적용, Air 상태일 경우도 소량 마찰력이 필요해보임
 	// 힘이 주어지지는 않지만 속력이 0 보다 큰 경우
-	if (m_Force.IsZero() && 0.f < m_Velocity.Length())
+	if (m_Force.IsZero() && m_Velocity.Length() > 0.f)
 	{
 		Vec2 vFrictionDir = -m_Velocity;
 		vFrictionDir.Normalize();
@@ -164,17 +166,19 @@ void RigidBody::BeltScroll()
 	// 공중에 있는 경우
 	else
 	{
-		if(m_Velocity.y < 0.f)
-			m_Velocity.y += m_GravityAccel * DT;
+		// IsJump를 넣은 이유 : 부재 시 점프를 하면 바로 한 프레임만에 중력가속도를 받아서 점프 초기 속도에 상관없이 올라가는 높이 제어가 안 됨
+		if (IsJump)
+			IsJump = false;
 		else
-			m_GravityVelocity.y += m_GravityAccel * DT;
-		
-		// 중력으로 인해 증가한 속도가 최대 제한치를 넘어서면, 맥스값으로 세팅
-		if (m_MaxGravitySpeed < m_Velocity.y + m_GravityVelocity.y)
 		{
-			m_Velocity.y = 0.f;
-			m_GravityVelocity.y = m_MaxGravitySpeed;
+			m_GravityVelocity.y += m_GravityAccel * DT;
+
+			// 중력으로 인해 증가한 속도가 최대 제한치를 넘어서면, 맥스값으로 세팅
+			if(m_GravityVelocity.y > m_MaxGravitySpeed)
+				m_GravityVelocity.y = m_MaxGravitySpeed;
 		}
+		
+		
 	}
 
 	// 최종 속도 = 움직임 속도 + 중력으로 인해 발생한 속도

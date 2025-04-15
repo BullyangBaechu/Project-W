@@ -1,0 +1,11 @@
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.vsidx
+*.db
+*.opendb
+*.pdb
+*.obj
+Debug/
+Release/

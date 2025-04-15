@@ -28,6 +28,7 @@ private:
     float           m_MaxGravitySpeed;
     float           m_GravityAccel;
     bool            m_Ground;
+    bool            IsJump;
 
     float           m_JumpSpeed; 
     int             m_MaxJumpStack;

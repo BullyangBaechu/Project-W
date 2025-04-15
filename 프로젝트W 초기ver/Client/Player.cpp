@@ -60,9 +60,9 @@ Player::Player()
 	m_RigidBody->SetRigidBodyMode(RIGIDBODY_MODE::BELTSCROLL);
 	m_RigidBody->SetMass(1.f);
 	m_RigidBody->SetInitSpeed(50.f);
-	m_RigidBody->SetMaxSpeed(200.f);
+	m_RigidBody->SetMaxSpeed(500.f);
 	m_RigidBody->SetFriction(700.f);
-	m_RigidBody->SetJumpSpeed(500.f);
+	m_RigidBody->SetJumpSpeed(1000.f);
 }
 
 Player::~Player()
@@ -78,10 +78,7 @@ void Player::Tick()
 		m_RigidBody->AddForce(Vec2(-200.f, 0.f));
 	if (KEY_PRESSED(KEY::RIGHT))
 		m_RigidBody->AddForce(Vec2(200.f, 0.f));
-	if (KEY_PRESSED(KEY::UP))
-		m_RigidBody->AddForce(Vec2(0.f, -200.f));
-	if (KEY_PRESSED(KEY::DOWN))
-		m_RigidBody->AddForce(Vec2(0.f, 200.f));
+	
 
 	ChangeFlipbook();
 
@@ -89,8 +86,8 @@ void Player::Tick()
 	{
 		//Shoot();
 		m_RigidBody->Jump();
-		Camera::GetInst()->AddFadeOut(0.4f);
-		Camera::GetInst()->AddFadeIn(0.4f);
+		//Camera::GetInst()->AddFadeOut(0.4f);
+		//Camera::GetInst()->AddFadeIn(0.4f);
 	}
 
 	SetPos(vPos);
@@ -123,19 +120,11 @@ void Player::ChangeFlipbook()
 {
 	if (KEY_TAP(KEY::LEFT))
 		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_LEFT, 15.f);
-	if (KEY_TAP(KEY::UP))
-		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_UP, 15.f);
-	if (KEY_TAP(KEY::DOWN))
-		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_DOWN, 15.f);
 	if (KEY_TAP(KEY::RIGHT))
 		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f);
 
 	if (KEY_RELEASED(KEY::LEFT))
 		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_LEFT, 5.f);
-	if (KEY_RELEASED(KEY::UP))
-		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_UP, 5.f);
-	if (KEY_RELEASED(KEY::DOWN))
-		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_DOWN, 5.f);
 	if (KEY_RELEASED(KEY::RIGHT))
 		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_RIGHT, 5.f);
 }

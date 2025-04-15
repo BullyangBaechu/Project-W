@@ -58,7 +58,7 @@ void RunningLevel::Tick()
 	Level::Tick();
 
 	Vec2 cam = Camera::GetInst()->GetLookAt();
-	cam.x += 200.f * DT; // 초당 200 속도
+	cam.x += 300.f * DT; // 초당 300 속도
 	Camera::GetInst()->SetLookAt(cam);
 
 	if (KEY_TAP(KEY::F5))
