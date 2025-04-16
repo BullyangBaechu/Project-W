@@ -20,7 +20,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(245);
 
-    if (FAILED(Engine::GetInst()->Init(hInstance, 1280, 768)))
+    if (FAILED(Engine::GetInst()->Init(hInstance, 1440, 900 )))
     {
         return 0;
     }

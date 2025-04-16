@@ -38,7 +38,7 @@ void RunningLevel::Enter()
 
 	// Ground 오브젝트 추가
 	pActor = new Ground;
-	pActor->SetPos(Vec2(640.f, 700.f));
+	pActor->SetPos(Vec2(640.f, GROUND_Y));
 	//pActor->SetScale(Vec2(10000, 100));
 	
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);

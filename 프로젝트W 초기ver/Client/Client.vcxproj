@@ -143,6 +143,8 @@
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Bomb.h" />
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="BtnUI.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Collider.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RunningLevel.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GuidedMissile.h" />
@@ -197,6 +200,8 @@
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Bomb.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="BtnUI.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -213,6 +218,7 @@
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RunningLevel.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GuidedMissile.cpp" />

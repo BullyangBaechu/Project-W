@@ -14,6 +14,8 @@ private:
 	vector<Component*>	m_vecCom;		// 컴포넌트
 	ACTOR_TYPE			m_ActorType;	// 소속 그룹
 
+	vector<Actor*>		m_ChildActor;	// 자기 휘하 액터 (Spawner 같은 자식 액터가 있는 경우에 사용)
+
 
 	bool				m_CamCheck;
 	bool				m_Dead;			// Actor 의 Life 상태
@@ -29,6 +31,10 @@ public:
 	Vec2 GetRenderPos();
 
 	ACTOR_TYPE GetActorType() const { return m_ActorType; }
+
+	// 액터 본인의 휘하 자식 액터 관리용 함수
+	void AddChild(Actor* child);
+	void RemoveChild(Actor* child);
 
 	bool IsDead() const { return m_Dead ; }
 	virtual bool CamCheck();
@@ -47,8 +53,8 @@ public:
 
 public:
 	virtual void Begin() {}
-	virtual void Tick() = 0;		// 해당 Actor 가 매 프레임마다 수행할 내용을 구현
-	virtual void FinalTick() final;	// Actor 가 할 일(Tick)을 끝내고 난 뒤의 후속 조치
+	virtual void Tick() = 0;		// 해당 Actor 가 매 프레임마다 수행할 내용을 구현 -> 무조건 자식이 구현하게끔 순수 가상 함수 설정
+	virtual void FinalTick() final;	// Actor 가 할 일(Tick)을 끝내고 난 뒤의 후속 조치 -> 공통 처리 용으로 건드리지 못 하게 final 선언
 	virtual void Render(HDC _dc);	// Actor 가 화면에 그려지는 방식
 
 	virtual void BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) {}

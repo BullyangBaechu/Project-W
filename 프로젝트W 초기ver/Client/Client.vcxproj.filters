@@ -52,9 +52,6 @@
     <Filter Include="Game\4. Actor\Player">
       <UniqueIdentifier>{eca0f23a-a15e-49fb-8c1c-046a1e8c0141}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\4. Actor\Monster">
-      <UniqueIdentifier>{03ff1b3d-289e-4147-bb0d-d032390a5d8c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\6. Asset">
       <UniqueIdentifier>{96fe3fea-816c-4b19-87ba-91eb2a458354}</UniqueIdentifier>
     </Filter>
@@ -148,10 +145,16 @@
     <Filter Include="Game\3. Level\03.TestLevel">
       <UniqueIdentifier>{74647e8f-74eb-456f-802d-065d96c1d057}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\4. Actor\Brick">
+    <Filter Include="Game\4. Actor\Spawner">
+      <UniqueIdentifier>{470d670a-38a1-4af0-a0dd-006bee944be9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\Spawner\Brick">
       <UniqueIdentifier>{d4f738eb-4bec-4eba-ae14-151d3a3752b0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\4. Actor\Block">
+    <Filter Include="Game\4. Actor\Spawner\Monster">
+      <UniqueIdentifier>{03ff1b3d-289e-4147-bb0d-d032390a5d8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\Spawner\Bomb">
       <UniqueIdentifier>{955a752b-4ead-443e-a15f-aae0c90839e4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -202,7 +205,7 @@
       <Filter>Game\4. Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Game\4. Actor\Monster</Filter>
+      <Filter>Game\4. Actor\Spawner\Monster</Filter>
     </ClInclude>
     <ClInclude Include="TimeMgr.h">
       <Filter>Game\2. Manager\3. TimeMgr</Filter>
@@ -312,6 +315,15 @@
     <ClInclude Include="TestLevel.h">
       <Filter>Game\3. Level\03.TestLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>Game\4. Actor\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Game\4. Actor\Spawner\Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Game\4. Actor\Spawner\Brick</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -351,7 +363,7 @@
       <Filter>Game\4. Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Game\4. Actor\Monster</Filter>
+      <Filter>Game\4. Actor\Spawner\Monster</Filter>
     </ClCompile>
     <ClCompile Include="TimeMgr.cpp">
       <Filter>Game\2. Manager\3. TimeMgr</Filter>
@@ -466,6 +478,15 @@
     </ClCompile>
     <ClCompile Include="TestLevel.cpp">
       <Filter>Game\3. Level\03.TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>Game\4. Actor\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Game\4. Actor\Spawner\Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Game\4. Actor\Spawner\Brick</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -31,3 +31,9 @@
 
 
 #define PI 3.14159265f
+
+// 해상도 결정
+#define WINDOW_WIDTH 1440
+#define WINDOW_HEIGHT 900
+#define GROUND_Y (WINDOW_HEIGHT - 100.f)
+

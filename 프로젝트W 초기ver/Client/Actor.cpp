@@ -46,6 +46,18 @@ Vec2 Actor::GetRenderPos()
 	return Camera::GetInst()->GetRenderPos(m_Pos);	
 }
 
+// 자기 휘하로 관리할 액터들 추가
+void Actor::AddChild(Actor* child)
+{
+	m_ChildActor.push_back(child);
+}
+
+// 자기 휘하 관리 중인 액터들 삭제
+void Actor::RemoveChild(Actor* child)
+{
+	auto iter = find(m_ChildActor.begin(), m_ChildActor.end(), child);
+}
+
 bool Actor::CamCheck()
 {
 	if (!m_CamCheck)

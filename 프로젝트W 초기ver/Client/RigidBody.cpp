@@ -14,7 +14,7 @@ RigidBody::RigidBody()
 	, m_MaxGravitySpeed(1000.f)
 	, m_GravityAccel(1000.f)
 	, m_JumpSpeed(500.f)
-	, m_MaxJumpStack(3)
+	, m_MaxJumpStack(1)
 	, m_CurJumpStack(0)
 {
 }
