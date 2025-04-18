@@ -11,8 +11,11 @@
 #include "Monster.h"
 #include "TileActor.h"
 #include "Ground.h"
-#include "TimeMgr.h"
+#include "Spawner.h"
+#include "Brick.h"
+#include "Bomb.h"
 
+#include "TimeMgr.h"
 #include "CollisionMgr.h"
 
 
@@ -38,14 +41,24 @@ void RunningLevel::Enter()
 
 	// Ground 오브젝트 추가
 	pActor = new Ground;
-	pActor->SetPos(Vec2(640.f, GROUND_Y));
+	pActor->SetPos(Vec2(640.f, GROUND_Y + 50));
 	//pActor->SetScale(Vec2(10000, 100));
 	
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
+	// Spawner 생성
+	pActor = new Spawner;
+	//((Spawner*)pActor)->SetSpawnDelay(3.f);
+	AddObject(ACTOR_TYPE::SPAWNER, pActor);
+
+
+
 	CollisionMgr::GetInst()->CollisionCheckClear();
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::ENERMY, true);
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::PLATFORM, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::BRICK, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::BOMB, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLATFORM, ACTOR_TYPE::BRICK, true);
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER_PROJECTILE, ACTOR_TYPE::ENERMY, true);
 
 	// 카메라 LookAt 설정

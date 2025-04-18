@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "LevelMgr.h"
-
+#include "Actor.h"
 
 #include "StartLevel.h"
 #include "RunningLevel.h"

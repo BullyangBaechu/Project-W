@@ -19,6 +19,9 @@ Collider::~Collider()
 
 void Collider::FinalTick()
 {
+	if (GetOwner() == nullptr)
+		return;
+	
 	// 충돌체의 위치 갱신
 	Vec2 vActorPos = GetOwner()->GetPos();
 	m_FinalPos = vActorPos + m_OffsetPos;
@@ -26,6 +29,9 @@ void Collider::FinalTick()
 	// Collider 컴포넌트를 소유한 Actor 의 소속을 확인 후
 	// CollisionMgr 에 자신을 소속 그룹에 맞게 등록한다.
 	ACTOR_TYPE Type = GetOwner()->GetActorType();
+	// 안전하게
+	if (Type == ACTOR_TYPE::END)
+		return;
 	CollisionMgr::GetInst()->RegisterCollider(Type, this);
 
 	// 충돌체의 범위를 화면에 그려준다.

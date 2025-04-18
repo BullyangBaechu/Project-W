@@ -39,6 +39,10 @@ void RigidBody::Jump()
 
 void RigidBody::FinalTick()
 {
+
+	if (GetOwner() == nullptr)
+		return;
+
 	if(RIGIDBODY_MODE::BELTSCROLL == m_RigidBodyMode)
 		BeltScroll();
 	
@@ -114,6 +118,11 @@ void RigidBody::TopView()
 
 void RigidBody::BeltScroll()
 {
+	if (GetOwner() == nullptr)
+	{
+		OutputDebugString(L"[RigidBody::BeltScroll] GetOwner() is nullptr!\n");
+		return;
+	}
 	// 가속도 구하기
 	Vec2 vAccel = m_Force / m_Mass;
 

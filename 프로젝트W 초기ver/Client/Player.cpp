@@ -21,6 +21,7 @@
 #include "Camera.h"
 
 
+
 Player::Player()
 	: m_Speed(300.f) // 초당 100 픽셀 이동	
 	, m_Texture(nullptr)

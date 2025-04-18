@@ -14,12 +14,12 @@ private:
 	vector<Component*>	m_vecCom;		// 컴포넌트
 	ACTOR_TYPE			m_ActorType;	// 소속 그룹
 
-	vector<Actor*>		m_ChildActor;	// 자기 휘하 액터 (Spawner 같은 자식 액터가 있는 경우에 사용)
-
-
 	bool				m_CamCheck;
 	bool				m_Dead;			// Actor 의 Life 상태
 	bool				m_DontDestroy;
+
+protected:
+	vector<Actor*>		m_ChildActor;	// 자기 휘하 액터 (Spawner 같은 자식 액터가 있는 경우에 사용)
 
 public:
 	void SetPos(Vec2 _Pos) { m_Pos = _Pos; }
@@ -54,7 +54,8 @@ public:
 public:
 	virtual void Begin() {}
 	virtual void Tick() = 0;		// 해당 Actor 가 매 프레임마다 수행할 내용을 구현 -> 무조건 자식이 구현하게끔 순수 가상 함수 설정
-	virtual void FinalTick() final;	// Actor 가 할 일(Tick)을 끝내고 난 뒤의 후속 조치 -> 공통 처리 용으로 건드리지 못 하게 final 선언
+	//virtual void FinalTick() final;	// Actor 가 할 일(Tick)을 끝내고 난 뒤의 후속 조치 -> 공통 처리 용으로 건드리지 못 하게 final 선언
+	virtual void FinalTick();
 	virtual void Render(HDC _dc);	// Actor 가 화면에 그려지는 방식
 
 	virtual void BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) {}
@@ -73,14 +74,21 @@ public:
 template<typename T>
 T* Actor::AddComponent(T* _Component)
 {
+	// 디버깅 용으로 임시 넣은것
+	//assert(_Component);
+	//_Component->m_Actor = this;
+	
 	// 다른 Actor 의 소유 Component 가 입력된 경우
-	assert(!_Component->GetOwner());
+	// assert(!_Component->GetOwner());
 
 	// Actor 가 Component 의 주소를 저장
-	m_vecCom.push_back(_Component);
+	//m_vecCom.push_back(_Component);
 
 	// Component 가 자신을 소유하게 된 Actor 의 주소를 저장
 	_Component->m_Actor = this;
+
+	// Actor 가 Component 의 주소를 저장
+	m_vecCom.push_back(_Component);
 
 	return _Component;
 }

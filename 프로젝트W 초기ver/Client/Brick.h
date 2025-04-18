@@ -15,6 +15,7 @@ public:
     void Hit(int dmg);      // Ä³¸¯ÅÍ dmg
 
     virtual void Tick() override;
+    void Render(HDC _dc);
 
 };
 
