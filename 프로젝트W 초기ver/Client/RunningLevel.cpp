@@ -17,6 +17,7 @@
 
 #include "TimeMgr.h"
 #include "CollisionMgr.h"
+#include "AssetMgr.h"
 
 
 RunningLevel::RunningLevel()
@@ -30,6 +31,9 @@ RunningLevel::~RunningLevel()
 void RunningLevel::Enter()
 {
 	Actor* pActor = nullptr;
+
+	// 배경 텍스쳐 생성
+	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
 
 	// Player 생성
 	pActor = new Player;
@@ -90,5 +94,63 @@ void RunningLevel::Tick()
 void RunningLevel::Exit()
 {
 	DeleteAllObject();
+}
+
+// 세그먼트 구조 완성 시 삭제될 듯? 
+// 배경을 그리기 위해 추가한 함수인데, 세그먼트 구조로 가면 배경도 Actor로 만들 듯 함
+// 핵심 : 카메라 중심으로 텍스쳐를 좌우로 여러 장 생성
+void RunningLevel::Render(HDC _dc)
+{
+	// 1. 기본 정보
+	Vec2 camPos = Camera::GetInst()->GetLookAt();
+	Vec2 res = Engine::GetInst()->GetResolution();
+
+
+	float texWidth = m_BGTex->GetWidth();
+	float texHeight = m_BGTex->GetHeight();
+	
+
+	// 화면 대비 스케일 계산
+	float scaleX = res.x / texWidth;
+	float scaleY = res.y / texHeight;
+
+	// 전체 화면에 맞춰 scaling 하기 -> 일단 프레임 드랍 심해서 포기
+
+	// 전체 배경 비율 유지 or 꽉 채우기 (선택)
+	// float scale = min(scaleX, scaleY);  // 비율 유지
+	// float scaledWidth = texWidth * scale;
+	// float scaledHeight = texHeight * scale;
+
+	// "꽉 채우기" 원하니까 각각 따로 스케일 적용
+	//float scaledWidth = texWidth * scaleX;
+	//float scaledHeight = texHeight * scaleY;
+
+	float halfResX = res.x / 2.f;
+
+	// 2. 카메라 기준 반복 출력 범위 계산
+	int start = (int)((camPos.x - halfResX) / texWidth) - 1;
+	int end = (int)((camPos.x + halfResX) / texWidth) + 1;
+
+	// 3. 반복 렌더링
+	for (int i = start; i <= end; ++i)
+	{
+		float worldX = i * texWidth + texWidth / 2.f;
+		Vec2 worldPos(worldX, texHeight / 2.f);
+		Vec2 renderPos = Camera::GetInst()->GetRenderPos(worldPos);
+
+		TransparentBlt(_dc,
+			(int)(renderPos.x - texWidth / 2.f),
+			(int)(renderPos.y - texHeight / 2.f),
+			(int)texWidth,
+			(int)texHeight,
+			m_BGTex->GetDC(),
+			0, 0,
+			(int)texWidth,
+			(int)texHeight,
+			RGB(255, 0, 255)); // 마젠타 배경 투명 처리
+	}
+
+	// 4. 기존 Actor들 렌더링
+	Level::Render(_dc);
 }
 

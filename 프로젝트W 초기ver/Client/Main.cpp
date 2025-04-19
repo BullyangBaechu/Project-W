@@ -20,12 +20,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     //_CrtSetBreakAlloc(245);
 
-    if (FAILED(Engine::GetInst()->Init(hInstance, 1440, 900 )))
+    // 모니터 해상도 갖고오기는 구글링으로 해결...
+    // 1. 모니터 해상도 가져오기
+    int ScreenWidth = GetSystemMetrics(SM_CXSCREEN);
+    int ScreenHeight = GetSystemMetrics(SM_CYSCREEN);
+
+    // 2. 가져온 해상도 적용하기
+    if (FAILED(Engine::GetInst()->Init(hInstance, 1440, 900)))
     {
         return 0;
     }
+    /*
+    // 3. Init 이후에 가짜 전체화면 적용
+    HWND hwnd = g_MainWnd;
+    LONG style = GetWindowLong(hwnd, GWL_STYLE);
+    style &= ~WS_OVERLAPPEDWINDOW;
+    SetWindowLong(hwnd, GWL_STYLE, style);
 
-   
+    SetWindowPos(hwnd, HWND_TOP, 0, 0, ScreenWidth, ScreenHeight,SWP_NOZORDER | SWP_FRAMECHANGED);
+    */
+
     // 단축키 테이블 정보
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
     MSG msg = {};

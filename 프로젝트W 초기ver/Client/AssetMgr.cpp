@@ -168,7 +168,7 @@ Texture* AssetMgr::LoadTexture(const wstring& _Key, const wstring& _RelativePath
     Texture* pTex = FindTexture(_Key);
 
     // 이미 동일한 키값으로 등록된 텍스쳐가 있으면 해당 텍스쳐를 반환한다.
-    if (nullptr != pTex)
+    if (pTex != nullptr)
         return pTex;
     
     // 없으면 로딩해서 에셋매니저에 등록 후 반환한다.

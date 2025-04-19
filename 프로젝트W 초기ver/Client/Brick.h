@@ -2,6 +2,7 @@
 #include "Actor.h"
 #include "Collider.h"
 #include "CollisionMgr.h"
+#include "Texture.h"
 
 class Brick :
     public Actor
@@ -9,6 +10,9 @@ class Brick :
 private :
     int m_MaxHP;            // 벽돌 최대 체력
     int m_CurHP;            // 벽돌 현재 체력
+
+    Texture* m_Tex = nullptr;
+
 
     class Collider*     m_Collider;
     class RigidBody*    m_RigidBody;
@@ -20,7 +24,7 @@ public:
     void Hit(int dmg);      // 캐릭터 dmg
 
     virtual void Tick() override;
-    void Render(HDC _dc);
+    virtual void Render(HDC _dc) override;
 
     virtual void BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
     virtual void EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;

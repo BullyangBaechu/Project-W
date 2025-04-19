@@ -13,7 +13,7 @@ class Spawner :
     public Actor
 {
 private:
-    float m_SpawnDelay = 2.f;           // 초기 스폰 간격 시간
+    float m_SpawnDelay = 1.f;           // 초기 스폰 간격 시간
     float m_MinSpawnDelay = 0.5f;       // 최단 스폰 간격
     float m_DifficultyTime = 0.f;       // 난이도 누적 시간
     float m_DelayDescreaseTime = 0.05f; // 몇 초마다 시간을 줄인걸지
