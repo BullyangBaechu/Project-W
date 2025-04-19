@@ -42,6 +42,11 @@ void StartLevel::Tick()
 		ChangeLevel(LEVEL_TYPE::TEST);
 	}
 
+	if (KEY_TAP(KEY::F8))
+	{
+		ChangeLevel(LEVEL_TYPE::INFINITYMODE);
+	}
+
 	// 마우스 왼클릭이 발생하면, 해당위치에 Force 객체를 생성시킴
 	if (KEY_TAP(KEY::LBTN))
 	{

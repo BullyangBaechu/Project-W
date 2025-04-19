@@ -6,6 +6,7 @@ enum class LEVEL_TYPE
 	RUNNING,
 	EDITOR,
 	TEST,
+	INFINITYMODE,
 
 	END,
 };

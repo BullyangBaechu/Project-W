@@ -51,6 +51,7 @@ void RigidBody::FinalTick()
 
 	
 }
+
 /*
 void RigidBody::TopView()
 {
@@ -213,4 +214,67 @@ void RigidBody::BeltScroll()
 	Vec2 vVelo = vFinalVelocity;
 	vVelo.Normalize() *= vFinalVelocity.Length() * 1.0f;
 	DrawDebugLine(GetOwner()->GetRenderPos(), GetOwner()->GetRenderPos() + vVelo, PEN_TYPE::BLUE, 0.f);
+}
+
+void RigidBody::CollisionResponse(Actor* pOwner, Actor* pOther)
+{
+	Vec2 myPos = pOwner->GetPos();
+	Vec2 otherPos = pOther->GetPos();
+
+	Vec2 myScale = pOwner->GetScale();
+	Vec2 otherScale = pOther->GetScale();
+
+	Vec2 delta = otherPos - myPos;
+
+	float halfW = (myScale.x + otherScale.x) / 2.f;
+	float halfH = (myScale.y + otherScale.y) / 2.f;
+
+	float overlapX = halfW - abs(delta.x);
+	float overlapY = halfH - abs(delta.y);
+
+	// 우선 충돌한 축이 더 작은 쪽을 기준으로 충돌 방향 판단
+	if (overlapX < overlapY)
+	{
+		// ← →
+		if (delta.x > 0.f)
+		{
+			// 내가 왼쪽에 있음 → 오른쪽에서 막힘
+			myPos.x = otherPos.x - halfW - 1.f;
+		}
+		else
+		{
+			// 내가 오른쪽에 있음 → 왼쪽에서 막힘
+			myPos.x = otherPos.x + halfW + 1.f;
+		}
+
+		// X축 이동 정지
+		m_Velocity.x = 0.f;
+	}
+	/* 스펙 변경으로 인해 y축 충돌 여부 없음
+	else
+	{
+		// ↑ ↓
+		if (delta.y > 0.f)
+		{
+			// 내가 위쪽에 있음 → 아래쪽 물체 위에 착지
+			myPos.y = otherPos.y - halfH - 1.f;
+
+			// 바닥에 착지
+			m_Velocity.y = 0.f;
+			m_GravityVelocity = Vec2(0.f, 0.f);
+			if(pOther->GetActorType() == ACTOR_TYPE::PLATFORM || pOther->GetActorType() == ACTOR_TYPE::BRICK)
+				m_Ground = true;
+		}
+		else
+		{
+			// 내가 아래쪽에 있음 → 머리 박음
+			myPos.y = otherPos.y + halfH + 1.f;
+
+			// 위로 튀지 않게 속도 제거
+			m_Velocity.y = 0.f;
+			m_GravityVelocity = Vec2(0.f, 0.f);
+		}
+	}
+	*/
+	pOwner->SetPos(myPos);
 }

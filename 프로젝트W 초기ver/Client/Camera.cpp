@@ -9,7 +9,7 @@
 #include "Texture.h"
 
 Camera::Camera()
-	: m_Speed(500.f)
+	: m_Speed(350.f)
 	, m_BlackTex(nullptr)
 {
 	Vec2 Resol = Engine::GetInst()->GetResolution();

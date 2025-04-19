@@ -1,0 +1,92 @@
+#include "pch.h"
+#include "InfiniteLevel.h"
+
+#include "Camera.h"
+#include "KeyMgr.h"
+#include "Force.h"
+
+#include "Engine.h"
+#include "Level.h"
+#include "Player.h"
+#include "Monster.h"
+#include "TileActor.h"
+#include "Ground.h"
+#include "Spawner.h"
+#include "Brick.h"
+#include "Bomb.h"
+
+#include "TimeMgr.h"
+#include "CollisionMgr.h"
+
+
+InfiniteLevel::InfiniteLevel()
+{
+}
+
+InfiniteLevel::~InfiniteLevel()
+{
+}
+
+void InfiniteLevel::Enter()
+{
+	Actor* pActor = nullptr;
+
+	// Player 생성
+	pActor = new Player;
+	pActor->SetName(L"Player");
+	pActor->SetPos(Vec2(100.f, 700.f));
+	pActor->SetScale(Vec2(100, 100));
+	AddObject(ACTOR_TYPE::PLAYER, pActor);
+	RegisterAsPlayer(pActor);
+
+	// Ground 오브젝트 추가
+	pActor = new Ground;
+	pActor->SetPos(Vec2(640.f, GROUND_Y + 50));
+	//pActor->SetScale(Vec2(10000, 100));
+
+	AddObject(ACTOR_TYPE::PLATFORM, pActor);
+
+	// Spawner 생성
+	pActor = new Spawner;
+	//((Spawner*)pActor)->SetSpawnDelay(3.f);
+	AddObject(ACTOR_TYPE::SPAWNER, pActor);
+
+
+
+	CollisionMgr::GetInst()->CollisionCheckClear();
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::ENERMY, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::PLATFORM, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::BRICK, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::BOMB, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLATFORM, ACTOR_TYPE::BRICK, true);
+	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER_PROJECTILE, ACTOR_TYPE::ENERMY, true);
+
+	// 카메라 LookAt 설정
+	Vec2 vResolution = Engine::GetInst()->GetResolution();
+	Camera::GetInst()->SetLookAt(vResolution / 2.f);
+}
+
+void InfiniteLevel::Tick()
+{
+	Level::Tick();
+
+	// 카메라 자동 이동
+	Vec2 cam = Camera::GetInst()->GetLookAt();
+	float CamSpeed = Camera::GetInst()->GetCamSpeed();
+	cam.x += CamSpeed * DT;
+	Camera::GetInst()->SetLookAt(cam);
+
+
+	if (KEY_TAP(KEY::ESC))
+	{
+		ChangeLevel(LEVEL_TYPE::START);
+	}
+}
+
+void InfiniteLevel::Exit()
+{
+	DeleteAllObject();
+}
+
+
+

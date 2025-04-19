@@ -15,43 +15,44 @@ Spawner::Spawner()
 
 Spawner::~Spawner()
 {
-	/*
-	for (size_t i = 0; i < m_ChildActor.size(); ++i)
-	{
-		if (nullptr != m_ChildActor[i])
-		{
-			delete m_ChildActor[i];
-			m_ChildActor[i] = nullptr;
-		}
-	}
-	m_ChildActor.clear();
-	*/
 }
 
 void Spawner::Tick()
 {
+	/*
 	OutputDebugString(L"[Spawner] Tick 호출됨\n");
 	wchar_t sz[100];
 	swprintf_s(sz, 100, L"[Spawner] Acc: %.3f / Delay: %.3f\n", m_AccTime, m_SpawnDelay);
 	OutputDebugString(sz);
-
+	*/
 	m_AccTime += DT;
+	m_DifficultyTime += DT;
 
+	// 오브젝트 스폰
 	if (m_AccTime > m_SpawnDelay)
 	{
-		OutputDebugString(L"[Spawner] 벽돌 생성 트리거\n");
+		//OutputDebugString(L"[Spawner] 벽돌 생성 트리거\n");
 		SpawnRandomObject();
 		m_AccTime = 0;
 	}
+
+	// 일정 시간마다 스폰 간격 줄이기
+	if (m_DifficultyTime >= 5.f)
+	{
+		m_DifficultyTime = 0.f;
+
+		// 딜레이 줄이기 (단, 최소 한계 유지)
+		m_SpawnDelay -= m_DelayDescreaseTime;
+		if (m_SpawnDelay < m_MinSpawnDelay)
+			m_SpawnDelay = m_MinSpawnDelay;
+
+	}
+
 	
 }
 
 void Spawner::FinalTick()
 {
-	// 다음 프레임부터 처리
-	//for (Actor* obj : m_PendingAdd)
-		//AddChild(obj);
-	//m_PendingAdd.clear();
 
 	// 자식 FinalTick 호출 (컴포넌트 + 파괴 처리)
 	for (Actor* child : m_ChildActor)
@@ -70,45 +71,71 @@ void Spawner::SpawnRandomObject()
 	Actor* object = nullptr;
 	int Random = rand() % 100;
 
-	if (Random < 80)
+	// 첫 스폰 고정 시 사용할 조건문 (만약 안 쓴다면 if else 삭제 시키고 else에 있는 코드만 갖다 쓰면됨
+	if (m_FirstSpawn)
 	{
 		Brick* brick = new Brick;
-		int type = rand() % 4 + 1;
-		brick->Init(type);
+		brick->Init(1); // 무조건 Lv1
 		object = brick;
 		object->SetCamCheck(false);
-		//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, brick);
-		LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, (Actor*)brick);
+		LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, object);
+
+		m_FirstSpawn = false;
 	}
 	else
 	{
-		Bomb* bomb = new Bomb;
-		bomb->Init();
-		object = bomb;
-		object->SetCamCheck(false);
-		LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BOMB, (Actor*)bomb);
+		if (Random < 80)
+		{
+			Brick* brick = new Brick;
+
+			// 벽돌 단계 별 가중치
+			int weight[4] = { 50, 30, 15, 5 };
+			int r = rand() % 100;
+			int acc = 0;
+			int type = 1;
+
+			// 가중치에 맞춰 type 확률 조정
+			for (int i = 0; i < 4;i++)
+			{
+				acc += weight[i];
+				if (r < acc)
+				{
+					type = i + 1;
+					break;
+				}
+			}
+
+			brick->Init(type);
+			object = brick;
+			object->SetCamCheck(false);
+			//LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, brick);
+			LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, (Actor*)brick);
+		}
+		else
+		{
+			Bomb* bomb = new Bomb;
+			bomb->Init();
+			object = bomb;
+			object->SetCamCheck(false);
+			LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BOMB, (Actor*)bomb);
+		}
 	}
 
 	if (object)
 	{
-		
+
 		// 벽돌, 폭탄을 오른쪽 상단 구석에 스폰시키기
 		Vec2 CamPos = Camera::GetInst()->GetLookAt();
 		Vec2 Res = Engine::GetInst()->GetResolution();
-		
+
 		float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x;
 		float ObjectPos_y = CamPos.y - (Res.y / 2.f) + object->GetScale().y;
 
-		/*
-		상단 정확히 모서리에 고정 시키려면 이거 써야지
-		float ObjectPos_x = Pos.x - (object->GetScale().x / 2.f);
-		float ObjectPos_y = (object->GetScale().y / 2.f);
-		*/
+
 		Vec2 ObjectPos = Vec2(ObjectPos_x, ObjectPos_y);
 
 		object->SetPos(ObjectPos);
-		// m_PendingAdd.push_back(object);
-		// AddChild(object);
+
 	}
 }
 

@@ -45,10 +45,11 @@ private:
 	Texture*		   m_BlackTex;			// 검은색 텍스쳐
 
 public:
-	void SetLookAt(Vec2 _vLookAt) { m_LookAt = _vLookAt; }
-	Vec2 GetLookAt() { return m_LookAt + m_Offset; }
-	Vec2 GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
-	Vec2 GetRealPos(Vec2 _RenderPos) { return _RenderPos + m_Diff; }
+	float	GetCamSpeed() { return m_Speed; }
+	void	SetLookAt(Vec2 _vLookAt) { m_LookAt = _vLookAt; }
+	Vec2	GetLookAt() { return m_LookAt + m_Offset; }
+	Vec2	GetRenderPos(Vec2 _RealPos) { return _RealPos - m_Diff; }
+	Vec2	GetRealPos(Vec2 _RenderPos) { return _RenderPos + m_Diff; }
 	
 	void SetOscillation(float _Frequency, float _Amplitude, float _Time)
 	{

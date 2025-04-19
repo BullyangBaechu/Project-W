@@ -79,7 +79,7 @@ T* Actor::AddComponent(T* _Component)
 	//_Component->m_Actor = this;
 	
 	// 다른 Actor 의 소유 Component 가 입력된 경우
-	// assert(!_Component->GetOwner());
+	assert(!_Component->GetOwner());
 
 	// Actor 가 Component 의 주소를 저장
 	//m_vecCom.push_back(_Component);

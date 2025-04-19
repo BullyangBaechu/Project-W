@@ -1,5 +1,8 @@
 #pragma once
 #include "Actor.h"
+#include "Collider.h"
+#include "CollisionMgr.h"
+
 class Brick :
     public Actor
 {
@@ -10,12 +13,17 @@ private :
     class Collider*     m_Collider;
     class RigidBody*    m_RigidBody;
 
+    bool IsHit;             // 피격 판정
+
 public:
     void Init(int type);    // type == 벽돌 종류
     void Hit(int dmg);      // 캐릭터 dmg
 
     virtual void Tick() override;
     void Render(HDC _dc);
+
+    virtual void BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
+    virtual void EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
 
 };
 

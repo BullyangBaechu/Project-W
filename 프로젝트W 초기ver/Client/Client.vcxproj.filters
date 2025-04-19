@@ -157,6 +157,9 @@
     <Filter Include="Game\4. Actor\Spawner\Bomb">
       <UniqueIdentifier>{955a752b-4ead-443e-a15f-aae0c90839e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\3. Level\03.InfiniteLevel">
+      <UniqueIdentifier>{143b5928-8295-4d55-9f27-a251565b411b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -324,6 +327,9 @@
     <ClInclude Include="Brick.h">
       <Filter>Game\4. Actor\Spawner\Brick</Filter>
     </ClInclude>
+    <ClInclude Include="InfiniteLevel.h">
+      <Filter>Game\3. Level\03.InfiniteLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -487,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Game\4. Actor\Spawner\Brick</Filter>
+    </ClCompile>
+    <ClCompile Include="InfiniteLevel.cpp">
+      <Filter>Game\3. Level\03.InfiniteLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

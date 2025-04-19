@@ -6,6 +6,7 @@
 #include "RunningLevel.h"
 #include "EditorLevel.h"
 #include "TestLevel.h"
+#include "InfiniteLevel.h"
 
 
 
@@ -27,6 +28,7 @@ void LevelMgr::Init()
 	m_AllLevel[(UINT)LEVEL_TYPE::RUNNING] = new RunningLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::EDITOR] = new EditorLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::TEST] = new TestLevel;
+	m_AllLevel[(UINT)LEVEL_TYPE::INFINITYMODE] = new InfiniteLevel;
 
 	::ChangeLevel(LEVEL_TYPE::START);
 }

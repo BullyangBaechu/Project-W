@@ -34,7 +34,7 @@ void RunningLevel::Enter()
 	// Player 생성
 	pActor = new Player;
 	pActor->SetName(L"Player");
-	pActor->SetPos(Vec2(640.f, 400.f));
+	pActor->SetPos(Vec2(100.f, 700.f));
 	pActor->SetScale(Vec2(100, 100));
 	AddObject(ACTOR_TYPE::PLAYER, pActor);
 	RegisterAsPlayer(pActor);
@@ -70,8 +70,10 @@ void RunningLevel::Tick()
 {
 	Level::Tick();
 
+	// 카메라 자동 이동
 	Vec2 cam = Camera::GetInst()->GetLookAt();
-	cam.x += 300.f * DT; // 초당 300 속도
+	float CamSpeed = Camera::GetInst()->GetCamSpeed();
+	cam.x += CamSpeed * DT; 
 	Camera::GetInst()->SetLookAt(cam);
 
 	if (KEY_TAP(KEY::F5))

@@ -156,6 +156,7 @@
     <ClInclude Include="Force.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IdleMon.h" />
+    <ClInclude Include="InfiniteLevel.h" />
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RunningLevel.h" />
@@ -215,6 +216,7 @@
     <ClCompile Include="Force.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="IdleMon.cpp" />
+    <ClCompile Include="InfiniteLevel.cpp" />
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RunningLevel.cpp" />

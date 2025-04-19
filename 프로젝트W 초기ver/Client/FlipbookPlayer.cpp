@@ -29,6 +29,8 @@ void FlipbookPlayer::FinalTick()
 	if (nullptr == m_CurFlipbook)
 		return;
 
+	
+
 	if (m_Finish)
 	{
 		if (0 == m_RepeatCount)

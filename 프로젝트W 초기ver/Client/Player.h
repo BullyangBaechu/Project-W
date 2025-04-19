@@ -25,15 +25,26 @@ class Player :
     public Actor
 {
 private:
-    float           m_Speed;    // 플레이어의 이동속력    
+    float           m_Speed;            // 플레이어의 이동속력    
     Texture*        m_Texture;
        
     Collider*       m_HurtBox;
     FlipbookPlayer* m_FBPlayer;
     RigidBody*      m_RigidBody;
 
+    // PlayerAttack 용
+    Collider*       m_AttackCollider;   // 공격 판정 용
+    float           m_AttackTimer;      // 공격 판정 타이머
+    int             m_Dmg;              // 플레이어 공격력
 
+    Vec2            m_PrevPos;          // 이전 프레임 위치
 
+    // PlayerGaurd 용
+
+    
+
+    //bool            m_BlockLeft;;
+    //bool            m_BlockRight;
 
 public:
     virtual void Tick() override;   
@@ -41,11 +52,16 @@ public:
     virtual void BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
     virtual void EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
 
+    int GetPlayerDmg() { return m_Dmg; }
+
     virtual bool CamCheck() override;
 
 private:
     void Shoot();
+    void PlayerAttack();
     void ChangeFlipbook();
+    
+
 
 public:
     Player();

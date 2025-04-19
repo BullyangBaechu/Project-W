@@ -63,6 +63,8 @@ public:
 public:
     virtual void FinalTick() override;
 
+    void CollisionResponse(Actor* pOwner, Actor* pOther);
+
 private:
     //void TopView();
     void BeltScroll();

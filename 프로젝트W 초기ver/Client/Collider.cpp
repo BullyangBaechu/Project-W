@@ -10,6 +10,7 @@
 Collider::Collider()
 	: Component(COMPONENT_TYPE::COLLIDER)
 	, m_Overlap(0)
+	, m_Enable(true)
 {
 }
 
@@ -30,8 +31,8 @@ void Collider::FinalTick()
 	// CollisionMgr 에 자신을 소속 그룹에 맞게 등록한다.
 	ACTOR_TYPE Type = GetOwner()->GetActorType();
 	// 안전하게
-	if (Type == ACTOR_TYPE::END)
-		return;
+	//if (Type == ACTOR_TYPE::END)
+		//return;
 	CollisionMgr::GetInst()->RegisterCollider(Type, this);
 
 	// 충돌체의 범위를 화면에 그려준다.
@@ -46,6 +47,10 @@ void Collider::FinalTick()
 
 void Collider::BeginOverlap(Collider* _Other)
 {
+	// 혹시 충돌체 자신이 m_Enable false로 판정 무시하거나 or 상대 충돌체가 IsEnable == false(즉, 상대 m_Enable이 false면) 충돌 판정 무시
+	if (!m_Enable || !_Other->IsEnable())
+		return;
+	
 	++m_Overlap;
 	GetOwner()->BeginOverlap(this, _Other->GetOwner(), _Other);
 }
