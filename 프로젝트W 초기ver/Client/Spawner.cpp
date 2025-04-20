@@ -1,3 +1,4 @@
+/*
 #include "pch.h"
 #include "Spawner.h"
 #include "Brick.h"
@@ -8,7 +9,8 @@
 #include "Camera.h"
 #include "LevelMgr.h"
 #include "Level.h"
-
+*/
+/*
 Spawner::Spawner()
 {
 }
@@ -16,15 +18,10 @@ Spawner::Spawner()
 Spawner::~Spawner()
 {
 }
-
+/*
 void Spawner::Tick()
 {
-	/*
-	OutputDebugString(L"[Spawner] Tick »£√‚µ \n");
-	wchar_t sz[100];
-	swprintf_s(sz, 100, L"[Spawner] Acc: %.3f / Delay: %.3f\n", m_AccTime, m_SpawnDelay);
-	OutputDebugString(sz);
-	*/
+	
 	m_AccTime += DT;
 	m_DifficultyTime += DT;
 
@@ -138,4 +135,5 @@ void Spawner::SpawnRandomObject()
 
 	}
 }
+*/
 

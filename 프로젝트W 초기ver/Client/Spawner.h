@@ -1,6 +1,7 @@
 #pragma once
 #include "Actor.h"
-
+// SpawnActor -> SpawnMgr 로 리팩토링 중 -> 리팩토링 되면 삭제 예정
+/*
 enum class STAGEMODE
 {
    RUN,
@@ -41,4 +42,4 @@ public:
     ~Spawner();
    
 };
-
+*/

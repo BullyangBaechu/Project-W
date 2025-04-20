@@ -47,9 +47,9 @@ void InfiniteLevel::Enter()
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
 	// Spawner »ý¼º
-	pActor = new Spawner;
+	//pActor = new Spawner;
 	//((Spawner*)pActor)->SetSpawnDelay(3.f);
-	AddObject(ACTOR_TYPE::SPAWNER, pActor);
+	//AddObject(ACTOR_TYPE::SPAWNER, pActor);
 
 
 

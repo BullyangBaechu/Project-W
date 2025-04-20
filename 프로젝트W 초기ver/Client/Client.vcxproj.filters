@@ -145,20 +145,20 @@
     <Filter Include="Game\3. Level\03.TestLevel">
       <UniqueIdentifier>{74647e8f-74eb-456f-802d-065d96c1d057}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\4. Actor\Spawner">
-      <UniqueIdentifier>{470d670a-38a1-4af0-a0dd-006bee944be9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\4. Actor\Spawner\Brick">
-      <UniqueIdentifier>{d4f738eb-4bec-4eba-ae14-151d3a3752b0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\4. Actor\Spawner\Monster">
-      <UniqueIdentifier>{03ff1b3d-289e-4147-bb0d-d032390a5d8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\4. Actor\Spawner\Bomb">
-      <UniqueIdentifier>{955a752b-4ead-443e-a15f-aae0c90839e4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\3. Level\03.InfiniteLevel">
       <UniqueIdentifier>{143b5928-8295-4d55-9f27-a251565b411b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\2. Manager\SpawnMgr">
+      <UniqueIdentifier>{5cea195c-54d9-4359-9a38-fcfdc121f5b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\Bomb">
+      <UniqueIdentifier>{955a752b-4ead-443e-a15f-aae0c90839e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\Brick">
+      <UniqueIdentifier>{d4f738eb-4bec-4eba-ae14-151d3a3752b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\Monster">
+      <UniqueIdentifier>{03ff1b3d-289e-4147-bb0d-d032390a5d8c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -208,7 +208,7 @@
       <Filter>Game\4. Actor\Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>Game\4. Actor\Spawner\Monster</Filter>
+      <Filter>Game\4. Actor\Monster</Filter>
     </ClInclude>
     <ClInclude Include="TimeMgr.h">
       <Filter>Game\2. Manager\3. TimeMgr</Filter>
@@ -318,17 +318,17 @@
     <ClInclude Include="TestLevel.h">
       <Filter>Game\3. Level\03.TestLevel</Filter>
     </ClInclude>
-    <ClInclude Include="Spawner.h">
-      <Filter>Game\4. Actor\Spawner</Filter>
-    </ClInclude>
     <ClInclude Include="Bomb.h">
-      <Filter>Game\4. Actor\Spawner\Bomb</Filter>
+      <Filter>Game\4. Actor\Bomb</Filter>
     </ClInclude>
     <ClInclude Include="Brick.h">
-      <Filter>Game\4. Actor\Spawner\Brick</Filter>
+      <Filter>Game\4. Actor\Brick</Filter>
     </ClInclude>
     <ClInclude Include="InfiniteLevel.h">
       <Filter>Game\3. Level\03.InfiniteLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnMgr.h">
+      <Filter>Game\2. Manager\SpawnMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -369,7 +369,7 @@
       <Filter>Game\4. Actor\Player</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>Game\4. Actor\Spawner\Monster</Filter>
+      <Filter>Game\4. Actor\Monster</Filter>
     </ClCompile>
     <ClCompile Include="TimeMgr.cpp">
       <Filter>Game\2. Manager\3. TimeMgr</Filter>
@@ -485,17 +485,17 @@
     <ClCompile Include="TestLevel.cpp">
       <Filter>Game\3. Level\03.TestLevel</Filter>
     </ClCompile>
-    <ClCompile Include="Spawner.cpp">
-      <Filter>Game\4. Actor\Spawner</Filter>
-    </ClCompile>
     <ClCompile Include="Bomb.cpp">
-      <Filter>Game\4. Actor\Spawner\Bomb</Filter>
+      <Filter>Game\4. Actor\Bomb</Filter>
     </ClCompile>
     <ClCompile Include="Brick.cpp">
-      <Filter>Game\4. Actor\Spawner\Brick</Filter>
+      <Filter>Game\4. Actor\Brick</Filter>
     </ClCompile>
     <ClCompile Include="InfiniteLevel.cpp">
       <Filter>Game\3. Level\03.InfiniteLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnMgr.cpp">
+      <Filter>Game\2. Manager\SpawnMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -160,7 +160,7 @@
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RunningLevel.h" />
-    <ClInclude Include="Spawner.h" />
+    <ClInclude Include="SpawnMgr.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="func.h" />
     <ClInclude Include="GuidedMissile.h" />
@@ -220,7 +220,7 @@
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RunningLevel.cpp" />
-    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="SpawnMgr.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="func.cpp" />
     <ClCompile Include="GuidedMissile.cpp" />

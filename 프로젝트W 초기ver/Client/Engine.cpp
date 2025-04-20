@@ -11,6 +11,7 @@
 #include "CollisionMgr.h"
 #include "TaskMgr.h"
 #include "Camera.h"
+#include "SpawnMgr.h"
 
 Engine::Engine()
     : m_hInst(nullptr)

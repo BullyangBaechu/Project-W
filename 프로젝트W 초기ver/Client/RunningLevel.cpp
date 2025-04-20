@@ -11,13 +11,14 @@
 #include "Monster.h"
 #include "TileActor.h"
 #include "Ground.h"
-#include "Spawner.h"
+//#include "Spawner.h"
 #include "Brick.h"
 #include "Bomb.h"
 
 #include "TimeMgr.h"
 #include "CollisionMgr.h"
 #include "AssetMgr.h"
+#include "SpawnMgr.h"
 
 
 RunningLevel::RunningLevel()
@@ -51,11 +52,12 @@ void RunningLevel::Enter()
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
 	// Spawner 생성
-	pActor = new Spawner;
+	//pActor = new Spawner;
 	//((Spawner*)pActor)->SetSpawnDelay(3.f);
-	AddObject(ACTOR_TYPE::SPAWNER, pActor);
+	//AddObject(ACTOR_TYPE::SPAWNER, pActor);
 
-
+	// SpawnMgr 불러오기
+	SpawnMgr::GetInst()->Init();
 
 	CollisionMgr::GetInst()->CollisionCheckClear();
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::ENERMY, true);
@@ -73,6 +75,9 @@ void RunningLevel::Enter()
 void RunningLevel::Tick()
 {
 	Level::Tick();
+
+	// SpawnMgr 로직 시작
+	SpawnMgr::GetInst()->Tick();
 
 	// 카메라 자동 이동
 	Vec2 cam = Camera::GetInst()->GetLookAt();

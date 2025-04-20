@@ -93,3 +93,11 @@ enum class TASK_TYPE
 	CHANGE_LEVEL,
 
 };
+
+enum class STAGEMODE
+{
+	RUN,
+	INFINITERUN,
+	CHALLENGE,
+
+};
