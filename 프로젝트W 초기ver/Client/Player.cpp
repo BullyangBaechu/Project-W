@@ -149,6 +149,11 @@ void Player::Tick()
 		}
 	}
 
+
+	// 플레이어 가드 판정
+	if (KEY_TAP(KEY::LSHFT))
+		PlayerGuard();
+
 	SetPos(vPos);
 }
 // 안 쓰면 삭제 예정
@@ -197,6 +202,17 @@ void Player::PlayerAttack()
 	m_AttackCollider->SetEnable(true);
 
 	m_AttackTimer = 0.1f;
+}
+
+void Player::PlayerGuard()
+{
+	m_GuardCollider = AddComponent(new Collider);
+
+	m_GuardCollider->SetName(L"GuardBox");
+	m_GuardCollider->SetOffset(Vec2(0.f, 0.f));
+	m_GuardCollider->SetScale(Vec2(150.f,150.f));
+	m_GuardCollider->SetColliderMode(ColliderType::Circle);
+	m_GuardCollider->SetEnable(true);
 }
 
 // 캐릭터 자동이동으로 변경된 이 시점에서는 안 쓸수도

@@ -37,9 +37,15 @@ private:
     float           m_AttackTimer;      // 공격 판정 타이머
     int             m_Dmg;              // 플레이어 공격력
 
+
+    // PlayerGuard 용
+    Collider*       m_GuardCollider;    // 가드 판정 용
+    float           m_GuardTimer;       // 가드 판정 타이머
+
+
     Vec2            m_PrevPos;          // 이전 프레임 위치
 
-    // PlayerGaurd 용
+    
 
     
 
@@ -59,6 +65,7 @@ public:
 private:
     void Shoot();
     void PlayerAttack();
+    void PlayerGuard();
     void ChangeFlipbook();
     
 

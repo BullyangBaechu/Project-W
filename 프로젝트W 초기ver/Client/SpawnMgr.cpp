@@ -41,7 +41,7 @@ void SpawnMgr::Tick()
 
     if (m_StageMode == STAGEMODE::RUN && m_DifficultyTime >= 5.f)
     {
-        m_DifficultyTime = 0.f;
+        m_DifficultyTime = 0.2f;
         m_SpawnDelay -= m_DelayDescreaseTime;
 
         // 스폰 간격 최소까지만 낮추기
@@ -113,11 +113,7 @@ void SpawnMgr::SpawnRandomObject()
             //object->SetCamCheck(false);
     }
 
-    assert(object != nullptr && "SpawnMgr: 생성된 object가 nullptr입니다.");
-    //assert(object->GetType() < ACTOR_TYPE::END && "SpawnMgr: 잘못된 ACTOR_TYPE입니다.");
-    assert(LevelMgr::GetInst() != nullptr && L"[SpawnMgr] LevelMgr가 nullptr입니다.");
-    assert(LevelMgr::GetInst()->GetCurrentLevel() != nullptr && L"[SpawnMgr] 현재 레벨이 nullptr입니다.");
-    assert((UINT)ACTOR_TYPE::BRICK < (UINT)ACTOR_TYPE::END && L"[SpawnMgr] 잘못된 ACTOR_TYPE입니다.");
+   
 
     if (object)
     {

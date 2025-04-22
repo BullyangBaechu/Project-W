@@ -3,6 +3,8 @@
 
 #include "Actor.h"
 #include "Collider.h"
+#include "Camera.h"
+#include "Engine.h"
 
 Ground::Ground()
 	: m_Collider(nullptr)
@@ -20,6 +22,10 @@ Ground::~Ground()
 
 void Ground::Tick()
 {
+	Vec2 GroundPos = GetPos();
+	Vec2 CamPos = Camera::GetInst()->GetLookAt();
+	Vec2 Res = Engine::GetInst()->GetResolution();
+
 }
 
 

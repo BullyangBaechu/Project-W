@@ -5,7 +5,7 @@ class RunningLevel :
     public Level
 {
 private:
-    Texture* m_BGTex;
+    Texture* m_BGTex;               // 배경 텍스쳐
 
 public:
     virtual void Enter() override;

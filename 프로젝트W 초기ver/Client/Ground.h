@@ -1,13 +1,15 @@
 #pragma once
 #include "Actor.h"
 
+class Texture;
+class Collider;
 
 class Ground :
     public Actor
 {
 private:
-    class Collider* m_Collider;
-
+    Collider* m_Collider;
+    Texture*    m_Texture;
 
 public:
     virtual void Tick() override;

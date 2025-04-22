@@ -11,10 +11,10 @@
 Camera::Camera()
 	: m_Speed(350.f)
 	, m_BlackTex(nullptr)
+	, m_Offset(0,0)
 {
 	Vec2 Resol = Engine::GetInst()->GetResolution();
-	m_BlackTex = AssetMgr::GetInst()->CreateTexture( L"CameraTex"
-													, (UINT)Resol.x, (UINT)Resol.y);
+	m_BlackTex = AssetMgr::GetInst()->CreateTexture( L"CameraTex", (UINT)Resol.x, (UINT)Resol.y);
 }
 
 Camera::~Camera()

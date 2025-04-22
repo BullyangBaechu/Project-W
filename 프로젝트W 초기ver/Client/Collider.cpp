@@ -11,6 +11,7 @@ Collider::Collider()
 	: Component(COMPONENT_TYPE::COLLIDER)
 	, m_Overlap(0)
 	, m_Enable(true)
+	, m_ColliderMode(ColliderType::Rect)
 {
 }
 
@@ -37,12 +38,30 @@ void Collider::FinalTick()
 
 	// 충돌체의 범위를 화면에 그려준다.
 
+	// 원형
+	// DrawDebugCircle(Vec2 _Center, float _Radius, PEN_TYPE _Pen, float _Life)
 	
-
-	if(m_Overlap)
-		DrawDebugRect(Camera::GetInst()->GetRenderPos(m_FinalPos), m_Scale, PEN_TYPE::RED, 0.f);
-	else
-		DrawDebugRect(Camera::GetInst()->GetRenderPos(m_FinalPos), m_Scale, PEN_TYPE::GREEN, 0.f);
+	// Collider 모양
+	switch(m_ColliderMode)
+	{
+	case ColliderType::Rect:
+	{
+		if (m_Overlap)
+			DrawDebugRect(Camera::GetInst()->GetRenderPos(m_FinalPos), m_Scale, PEN_TYPE::RED, 0.f);
+		else
+			DrawDebugRect(Camera::GetInst()->GetRenderPos(m_FinalPos), m_Scale, PEN_TYPE::GREEN, 0.f);
+		break;
+	}
+	case ColliderType::Circle:
+	{
+		if (m_Overlap)
+			DrawDebugCircle(Camera::GetInst()->GetRenderPos(m_FinalPos), GetScale().x*sqrtf(2.f), PEN_TYPE::RED, 0.f);
+		else
+			DrawDebugCircle(Camera::GetInst()->GetRenderPos(m_FinalPos), GetScale().x * sqrtf(2.f), PEN_TYPE::GREEN, 0.f);
+		break;
+	}
+	}
+	
 }
 
 void Collider::BeginOverlap(Collider* _Other)

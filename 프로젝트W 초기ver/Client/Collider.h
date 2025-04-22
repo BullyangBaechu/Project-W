@@ -1,6 +1,14 @@
 #pragma once
 #include "Component.h"
 
+// 충돌체 모양
+enum class ColliderType
+{
+    Rect,
+    Circle,
+
+    End,
+};
 
 class Collider :
     public Component
@@ -14,6 +22,7 @@ private:
 
     bool        m_Enable;       // Collider가 현재 충돌 판정을 할지 말지를 결정하는 플래그
 
+    ColliderType m_ColliderMode;
 
 public:
     void SetOffset(Vec2 _Offset) { m_OffsetPos = _Offset; }
@@ -26,6 +35,8 @@ public:
 
     void SetEnable(bool enable) { m_Enable = enable; }
     bool IsEnable() const { return m_Enable; }
+
+    GET_SET(ColliderType, ColliderMode);
      
 public:
     virtual void FinalTick() override;

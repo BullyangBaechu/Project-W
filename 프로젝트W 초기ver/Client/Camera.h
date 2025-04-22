@@ -27,6 +27,8 @@ class Camera
 	SINGLE(Camera);
 private:
 	Vec2		m_LookAt;	// 카메라가 바라보는 중앙지점(실제 좌표)
+	
+	// 카메라 진동이나 PP 효과에서 사용 -> 평소에는 사용 안 함 (0,0)
 	Vec2		m_Offset;
 
 	// 카메라 진동효과
