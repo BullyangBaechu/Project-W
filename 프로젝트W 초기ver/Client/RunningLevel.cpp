@@ -38,7 +38,7 @@ void RunningLevel::Enter()
 	Vec2 vResolution = Engine::GetInst()->GetResolution();
 	Camera::GetInst()->SetLookAt(vResolution / 2.f);
 
-	
+	/*
 	// 배경 생성
 	pActor = new BackGround;
 	pActor->SetName(L"BackGround");
@@ -46,7 +46,7 @@ void RunningLevel::Enter()
 	pActor->SetScale(Vec2(1440.f, 900.f));
 	pActor->SetCamCheck(false);
 	AddObject(ACTOR_TYPE::BACKGROUND, pActor);
-	
+	*/
 	
 
 	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
@@ -107,6 +107,13 @@ void RunningLevel::Tick()
 	SpawnMgr::GetInst()->Tick();
 
 	// 카메라 자동 이동
+
+	if (m_bFirstFrame)
+	{
+		m_bFirstFrame = false;
+		return;  // 첫 프레임은 카메라 이동하지 않음
+	}
+
 	Vec2 cam = Camera::GetInst()->GetLookAt();
 	float CamSpeed = Camera::GetInst()->GetCamSpeed();
 	cam.x += CamSpeed * DT; 
@@ -126,6 +133,12 @@ void RunningLevel::Tick()
 void RunningLevel::Exit()
 {
 	DeleteAllObject();
+}
+
+void RunningLevel::Render(HDC _dc)
+{
+
+	Level::Render(_dc);
 }
 
 // 세그먼트 구조 완성 시 삭제될 듯? 
