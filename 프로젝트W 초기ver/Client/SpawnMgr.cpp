@@ -105,6 +105,7 @@ void SpawnMgr::SpawnRandomObject()
             // Bomb »ý¼º
             Bomb* bomb = new Bomb;
             bomb->Init();
+            bomb->SetTarget(dynamic_cast<Player*>(LevelMgr::GetInst()->GetPlayer()));
             object = bomb;
             LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BOMB, (Actor*)bomb);
         }

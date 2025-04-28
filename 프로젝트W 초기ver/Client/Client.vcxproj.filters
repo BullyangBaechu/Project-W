@@ -160,6 +160,9 @@
     <Filter Include="Game\4. Actor\Monster">
       <UniqueIdentifier>{03ff1b3d-289e-4147-bb0d-d032390a5d8c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4. Actor\BackGround">
+      <UniqueIdentifier>{528685f7-2aec-43a0-b96b-8825610c1549}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="SpawnMgr.h">
       <Filter>Game\2. Manager\SpawnMgr</Filter>
     </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>Game\4. Actor\BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -496,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="SpawnMgr.cpp">
       <Filter>Game\2. Manager\SpawnMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>Game\4. Actor\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

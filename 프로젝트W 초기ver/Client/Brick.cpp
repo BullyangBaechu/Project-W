@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Player.h"
 #include "AssetMgr.h"
+#include "Ground.h"
 
 void Brick::Init(int type)
 {
@@ -53,12 +54,13 @@ void Brick::Tick()
 
 	m_RigidBody->SetGround(false);
 	Vec2 BrickPos = GetPos();
-
+	
 
 	float HalfHeight = m_Collider->GetScale().y / 2.f;
 
+
 	// 벽돌이 공중에 있다면
-	if (BrickPos.y + HalfHeight < GROUND_Y)
+	if (BrickPos.y + HalfHeight < GROUND_Y - 48.f)
 	{
 		// 카메라 따라 우측 이동하는 보정
 		float CamSpeed = Camera::GetInst()->GetCamSpeed();
@@ -70,7 +72,7 @@ void Brick::Tick()
 	else
 	{
 		Vec2 Pos = GetPos();
-		Pos.y = GROUND_Y - HalfHeight;
+		Pos.y = GROUND_Y - HalfHeight - 48.f;
 		SetPos(Pos);
 
 		m_RigidBody->SetGround(true);
@@ -81,6 +83,7 @@ void Brick::Tick()
 
 void Brick::Render(HDC _dc)
 {
+	
 	if (m_Tex)
 	{
 		Vec2 renderPos = GetRenderPos();

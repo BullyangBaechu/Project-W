@@ -12,7 +12,7 @@ public:
     virtual void Tick()  override;
     virtual void Exit()  override;
 
-    virtual void Render(HDC _dc) override;
+    //virtual void Render(HDC _dc) override;
 
 
 public:

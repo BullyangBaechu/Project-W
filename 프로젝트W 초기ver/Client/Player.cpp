@@ -31,6 +31,9 @@ Player::Player()
 	, m_AttackTimer(0.f)
 	, m_AttackCollider(nullptr)
 	, m_Dmg(1)
+	, m_Level(1)
+	, m_exp(0.f)
+	, m_MaxHP(1)
 	//, m_BlockLeft(false)
 	//, m_BlockRight(false)
 {
@@ -67,8 +70,8 @@ Player::Player()
 	m_RigidBody = AddComponent(new RigidBody);
 	m_RigidBody->SetRigidBodyMode(RIGIDBODY_MODE::BELTSCROLL);
 	m_RigidBody->SetMass(1.f);
-	m_RigidBody->SetInitSpeed(100.f);
-	m_RigidBody->SetMaxSpeed(500.f);
+	m_RigidBody->SetInitSpeed(200.f);
+	m_RigidBody->SetMaxSpeed(700.f);
 	m_RigidBody->SetFriction(500.f);
 	m_RigidBody->SetJumpSpeed(500.f);
 }
@@ -80,6 +83,9 @@ Player::~Player()
 
 void Player::Tick()
 {	
+
+	PlayerGetExp();
+
 	// 충돌 시 사용할 이전 프레임 위치
 	m_PrevPos = GetPos();
 
@@ -108,6 +114,8 @@ void Player::Tick()
 		m_RigidBody->AddForce(Vec2(recoverSpeed, 0.f));
 	}
 	
+
+
 	// -  Player가 오른쪽 화면 밖으로 못 나가게끔 처리 - 후에 필요없으면 삭제
 	//
 	// 1. 카메라의 오른쪽 경계 좌표
@@ -123,6 +131,8 @@ void Player::Tick()
 		vPos.x = RightLimit - PlayerHalfWidth;
 
 	//ChangeFlipbook();
+
+
 
 	if (KEY_TAP(KEY::SPACE))
 	{
@@ -153,8 +163,39 @@ void Player::Tick()
 	// 플레이어 가드 판정
 	if (KEY_TAP(KEY::LSHFT))
 		PlayerGuard();
+	if (m_GuardCollider && m_GuardCollider->IsEnable())
+	{
+		m_GuardTimer -= DT;
+		
+		if (m_GuardTimer <= 0.f)
+		{
+			m_GuardCollider->SetEnable(false);
+			m_GuardCollider = nullptr;
+		}
+	}
 
 	SetPos(vPos);
+}
+
+// 이동 거리 기반 레벨 업
+void Player::PlayerGetExp()
+{
+	Vec2 velocity = m_RigidBody->GetVelocity();
+
+	if (velocity.x > 0.f)
+	{
+		float distance = velocity.x * DT;
+		m_exp += distance;
+	}
+
+	static float expThresholds[5] = { 0.f, 1000.f, 3000.f, 6000.f, 10000.f };
+
+	while (m_Level < 5 && m_exp >= expThresholds[m_Level])
+	{
+		++m_Level;
+		// 필요하면 레벨업 이펙트/사운드 추가
+	}
+
 }
 // 안 쓰면 삭제 예정
 void Player::Shoot()
@@ -213,6 +254,9 @@ void Player::PlayerGuard()
 	m_GuardCollider->SetScale(Vec2(150.f,150.f));
 	m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
+
+	m_GuardTimer = 1.0f;
+
 }
 
 // 캐릭터 자동이동으로 변경된 이 시점에서는 안 쓸수도
@@ -238,16 +282,30 @@ void Player::ChangeFlipbook()
 void Player::Render(HDC _dc)
 {	
 	m_FBPlayer->Render(_dc);
+
+	// 임시 UI
+	// ====== HUD: 레벨/경험치 표시 ======
+
+	// 문자열 만들기
+	wchar_t szText[128] = {};
+	swprintf_s(szText, L"Lv.%d  Exp: %.0f", m_Level, m_exp);
+
+	// 출력 위치 (좌상단 기준)
+	Vec2 screenPos = Vec2(10.f, 10.f);
+
+	// SetBkMode를 통해 배경 투명하게
+	SetBkMode(_dc, TRANSPARENT);
+
+	// 검은색 글자로 출력
+	SetTextColor(_dc, RGB(0, 0, 0));
+	TextOut(_dc, (int)screenPos.x, (int)screenPos.y, szText, (int)wcslen(szText));
 }
 
 void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
 {
-	if (_OtherActor->GetName() == L"Monster")
-	{
-		int a = 0;
-	}
+	
 
-	else if (_OtherActor->GetName() == L"Ground")
+	if (_OtherActor->GetName() == L"Ground")
 	{
 		m_RigidBody->SetGround(true);
 	}

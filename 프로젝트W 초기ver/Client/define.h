@@ -36,5 +36,5 @@
 #define WINDOW_WIDTH 1440
 #define WINDOW_HEIGHT 900
 //#define GROUND_Y (WINDOW_HEIGHT - 100.f)
-#define GROUND_Y Engine::GetInst()->GetResolution().y-100.f
+#define GROUND_Y Engine::GetInst()->GetResolution().y-48.f
 

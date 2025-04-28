@@ -9,7 +9,7 @@
 #include "Texture.h"
 
 Camera::Camera()
-	: m_Speed(350.f)
+	: m_Speed(500.f)
 	, m_BlackTex(nullptr)
 	, m_Offset(0,0)
 {
@@ -23,15 +23,6 @@ Camera::~Camera()
 
 void Camera::Tick()
 {
-	if (KEY_PRESSED(KEY::W))
-		m_LookAt.y -= m_Speed* DT;
-	if (KEY_PRESSED(KEY::S))
-		m_LookAt.y += m_Speed * DT;
-	if (KEY_PRESSED(KEY::A))
-		m_LookAt.x -= m_Speed * DT;
-	if (KEY_PRESSED(KEY::D))
-		m_LookAt.x += m_Speed * DT;
-
 	// 카메라 진동효과
 	Oscilliation();
 

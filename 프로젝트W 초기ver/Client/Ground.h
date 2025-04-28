@@ -9,10 +9,13 @@ class Ground :
 {
 private:
     Collider* m_Collider;
-    Texture*    m_Texture;
+    Texture*    m_Tex;
+
+    int BGidx;              // 반복시킬 Ground 텍스쳐 수
 
 public:
     virtual void Tick() override;
+    virtual void Render(HDC _dc) override;
 
 
 public:

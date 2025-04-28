@@ -46,6 +46,12 @@ private:
     Vec2            m_PrevPos;          // 이전 프레임 위치
 
     
+    // Player 레벨 관련 스탯
+    int m_Level;
+    float m_exp;
+    int m_MaxHP;
+    int m_CurHP; // 안 쓸수도 있음
+
 
     
 
@@ -63,10 +69,12 @@ public:
     virtual bool CamCheck() override;
 
 private:
+    void PlayerGetExp();
     void Shoot();
     void PlayerAttack();
     void PlayerGuard();
     void ChangeFlipbook();
+    
     
 
 

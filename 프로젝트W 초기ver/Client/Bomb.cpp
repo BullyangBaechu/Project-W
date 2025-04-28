@@ -4,6 +4,7 @@
 
 #include "Collider.h"
 #include "AssetMgr.h"
+#include "TimeMgr.h"
 
 void Bomb::Init()
 {
@@ -15,10 +16,31 @@ void Bomb::Init()
 	m_Collider = AddComponent(new Collider);
 	m_Collider->SetScale(Vec2(100.f, 100.f)); // 테스트 용
 	// m_Collider->SetScale(GetScale()); -> 텍스쳐 넣으면 이거 쓰기
+    m_speed = 500.f;
+
+
 }
 
 void Bomb::Tick()
 {
+    if (nullptr == m_Target)
+    {
+        // 디버깅용
+        OutputDebugString(L"m_Target is NULL\n");
+        return;
+    }
+    
+    Vec2 pPos = m_Target->GetPos(); // 플레이어 위치
+    Vec2 bPos = this->GetPos();     // 폭탄 위치
+
+    Vec2 Dir = pPos - bPos;
+
+    if (Dir.Length() != 0.f)
+    {
+        Dir.Normalize();
+        bPos += Dir* m_speed * DT;
+        SetPos(bPos);
+    }
 }
 
 
@@ -43,4 +65,21 @@ void Bomb::Render(HDC _dc)
     }
 
     Actor::Render(_dc); // 디버그용 박스
+}
+
+void Bomb::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
+{
+    if (_OtherCollider->GetName() == L"GuardBox" && _OtherCollider->IsEnable())
+    {
+        Destroy();
+    }
+}
+
+void Bomb::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
+{
+   
+}
+
+void Bomb::EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
+{
 }

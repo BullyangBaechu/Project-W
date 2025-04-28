@@ -142,6 +142,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Asset.h" />
     <ClInclude Include="AssetMgr.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="Base.h" />
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Brick.h" />
@@ -200,6 +201,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Asset.cpp" />
     <ClCompile Include="AssetMgr.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="Base.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Brick.cpp" />

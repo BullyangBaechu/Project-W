@@ -1,4 +1,4 @@
-#include "pch.h"
+ï»¿#include "pch.h"
 #include "RunningLevel.h"
 
 #include "Camera.h"
@@ -14,6 +14,7 @@
 //#include "Spawner.h"
 #include "Brick.h"
 #include "Bomb.h"
+#include "BackGround.h"
 
 #include "TimeMgr.h"
 #include "CollisionMgr.h"
@@ -33,10 +34,24 @@ void RunningLevel::Enter()
 {
 	Actor* pActor = nullptr;
 
-	// ¹è°æ ÅØ½ºÃÄ »ı¼º
+	// ì¹´ë©”ë¼ LookAt ì„¤ì •
+	Vec2 vResolution = Engine::GetInst()->GetResolution();
+	Camera::GetInst()->SetLookAt(vResolution / 2.f);
+
+	
+	// ë°°ê²½ ìƒì„±
+	pActor = new BackGround;
+	pActor->SetName(L"BackGround");
+	//pActor->SetPos(Vec2(720.f, 450.f));
+	pActor->SetScale(Vec2(1440.f, 900.f));
+	pActor->SetCamCheck(false);
+	AddObject(ACTOR_TYPE::BACKGROUND, pActor);
+	
+	
+
 	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
 
-	// Player »ı¼º
+	// Player ìƒì„±
 	pActor = new Player;
 	pActor->SetName(L"Player");
 	pActor->SetPos(Vec2(100.f, 700.f));
@@ -44,19 +59,31 @@ void RunningLevel::Enter()
 	AddObject(ACTOR_TYPE::PLAYER, pActor);
 	RegisterAsPlayer(pActor);
 
-	// Ground ¿ÀºêÁ§Æ® Ãß°¡
-	pActor = new Ground;
-	pActor->SetPos(Vec2(640.f, GROUND_Y + 50));
-	//pActor->SetScale(Vec2(10000, 100));
+	// ì˜ˆë¹„ Ground ì˜¤ë¸Œì íŠ¸ ì¶”ê°€
+	//pActor = new Ground;
+	//pActor->SetPos(Vec2(640.f, GROUND_Y + 50));
+	////pActor->SetScale(Vec2(10000, 100));
+	//AddObject(ACTOR_TYPE::PLATFORM, pActor);
+
 	
+	// ì§„ì§œ Ground ì¶”ê°€
+	pActor = new Ground;
+	pActor->SetName(L"Ground");
+	pActor->SetPos(Vec2(720.f, GROUND_Y));
+	pActor->SetScale(Vec2(1440.f, 96.f));
+	pActor->SetCamCheck(true);
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
-	// Spawner »ı¼º
-	//pActor = new Spawner;
-	//((Spawner*)pActor)->SetSpawnDelay(3.f);
-	//AddObject(ACTOR_TYPE::SPAWNER, pActor);
+	// ë°˜ë³µ ì¬ìƒì„ ìœ„í•œ 2ë²ˆì§¸ Ground
+	pActor = new Ground;
+	pActor->SetName(L"Ground");
+	pActor->SetPos(Vec2(2160.f, GROUND_Y));
+	pActor->SetScale(Vec2(1440.f, 96.f));
+	pActor->SetCamCheck(true);
+	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
-	// SpawnMgr ºÒ·¯¿À±â
+
+	// SpawnMgr ë¶ˆëŸ¬ì˜¤ê¸°
 	SpawnMgr::GetInst()->Init();
 
 	CollisionMgr::GetInst()->CollisionCheckClear();
@@ -67,19 +94,19 @@ void RunningLevel::Enter()
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLATFORM, ACTOR_TYPE::BRICK, true);
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER_PROJECTILE, ACTOR_TYPE::ENERMY, true);
 
-	// Ä«¸Ş¶ó LookAt ¼³Á¤
-	Vec2 vResolution = Engine::GetInst()->GetResolution();
-	Camera::GetInst()->SetLookAt(vResolution / 2.f);
+	// ì¹´ë©”ë¼ LookAt ì„¤ì •
+	//Vec2 vResolution = Engine::GetInst()->GetResolution();
+	//Camera::GetInst()->SetLookAt(vResolution / 2.f);
 }
 
 void RunningLevel::Tick()
 {
 	Level::Tick();
 
-	// SpawnMgr ·ÎÁ÷ ½ÃÀÛ
+	// SpawnMgr ë¡œì§ ì‹œì‘
 	SpawnMgr::GetInst()->Tick();
 
-	// Ä«¸Ş¶ó ÀÚµ¿ ÀÌµ¿
+	// ì¹´ë©”ë¼ ìë™ ì´ë™
 	Vec2 cam = Camera::GetInst()->GetLookAt();
 	float CamSpeed = Camera::GetInst()->GetCamSpeed();
 	cam.x += CamSpeed * DT; 
@@ -101,12 +128,14 @@ void RunningLevel::Exit()
 	DeleteAllObject();
 }
 
-// ¼¼±×¸ÕÆ® ±¸Á¶ ¿Ï¼º ½Ã »èÁ¦µÉ µí? 
-// ¹è°æÀ» ±×¸®±â À§ÇØ Ãß°¡ÇÑ ÇÔ¼öÀÎµ¥, ¼¼±×¸ÕÆ® ±¸Á¶·Î °¡¸é ¹è°æµµ Actor·Î ¸¸µé µí ÇÔ
-// ÇÙ½É : Ä«¸Ş¶ó Áß½ÉÀ¸·Î ÅØ½ºÃÄ¸¦ ÁÂ¿ì·Î ¿©·¯ Àå »ı¼º
+// ì„¸ê·¸ë¨¼íŠ¸ êµ¬ì¡° ì™„ì„± ì‹œ ì‚­ì œë  ë“¯? 
+// ë°°ê²½ì„ ê·¸ë¦¬ê¸° ìœ„í•´ ì¶”ê°€í•œ í•¨ìˆ˜ì¸ë°, ì„¸ê·¸ë¨¼íŠ¸ êµ¬ì¡°ë¡œ ê°€ë©´ ë°°ê²½ë„ Actorë¡œ ë§Œë“¤ ë“¯ í•¨
+// í•µì‹¬ : ì¹´ë©”ë¼ ì¤‘ì‹¬ìœ¼ë¡œ í…ìŠ¤ì³ë¥¼ ì¢Œìš°ë¡œ ì—¬ëŸ¬ ì¥ ìƒì„±
+
+/*
 void RunningLevel::Render(HDC _dc)
 {
-	// 1. ±âº» Á¤º¸
+	// 1. ê¸°ë³¸ ì •ë³´
 	Vec2 camPos = Camera::GetInst()->GetLookAt();
 	Vec2 res = Engine::GetInst()->GetResolution();
 
@@ -115,28 +144,28 @@ void RunningLevel::Render(HDC _dc)
 	float texHeight = m_BGTex->GetHeight();
 	
 
-	// È­¸é ´ëºñ ½ºÄÉÀÏ °è»ê
+	// í™”ë©´ ëŒ€ë¹„ ìŠ¤ì¼€ì¼ ê³„ì‚°
 	float scaleX = res.x / texWidth;
 	float scaleY = res.y / texHeight;
 
-	// ÀüÃ¼ È­¸é¿¡ ¸ÂÃç scaling ÇÏ±â -> ÀÏ´Ü ÇÁ·¹ÀÓ µå¶ø ½ÉÇØ¼­ Æ÷±â
+	// ì „ì²´ í™”ë©´ì— ë§ì¶° scaling í•˜ê¸° -> ì¼ë‹¨ í”„ë ˆì„ ë“œë ì‹¬í•´ì„œ í¬ê¸°
 
-	// ÀüÃ¼ ¹è°æ ºñÀ² À¯Áö or ²Ë Ã¤¿ì±â (¼±ÅÃ)
-	// float scale = min(scaleX, scaleY);  // ºñÀ² À¯Áö
+	// ì „ì²´ ë°°ê²½ ë¹„ìœ¨ ìœ ì§€ or ê½‰ ì±„ìš°ê¸° (ì„ íƒ)
+	// float scale = min(scaleX, scaleY);  // ë¹„ìœ¨ ìœ ì§€
 	// float scaledWidth = texWidth * scale;
 	// float scaledHeight = texHeight * scale;
 
-	// "²Ë Ã¤¿ì±â" ¿øÇÏ´Ï±î °¢°¢ µû·Î ½ºÄÉÀÏ Àû¿ë
+	// "ê½‰ ì±„ìš°ê¸°" ì›í•˜ë‹ˆê¹Œ ê°ê° ë”°ë¡œ ìŠ¤ì¼€ì¼ ì ìš©
 	//float scaledWidth = texWidth * scaleX;
 	//float scaledHeight = texHeight * scaleY;
 
 	float halfResX = res.x / 2.f;
 
-	// 2. Ä«¸Ş¶ó ±âÁØ ¹İº¹ Ãâ·Â ¹üÀ§ °è»ê
+	// 2. ì¹´ë©”ë¼ ê¸°ì¤€ ë°˜ë³µ ì¶œë ¥ ë²”ìœ„ ê³„ì‚°
 	int start = (int)((camPos.x - halfResX) / texWidth) - 1;
 	int end = (int)((camPos.x + halfResX) / texWidth) + 1;
 
-	// 3. ¹İº¹ ·»´õ¸µ
+	// 3. ë°˜ë³µ ë Œë”ë§
 	for (int i = start; i <= end; ++i)
 	{
 		float worldX = i * texWidth + texWidth / 2.f;
@@ -152,10 +181,10 @@ void RunningLevel::Render(HDC _dc)
 			0, 0,
 			(int)texWidth,
 			(int)texHeight,
-			RGB(255, 0, 255)); // ¸¶Á¨Å¸ ¹è°æ Åõ¸í Ã³¸®
+			RGB(255, 0, 255)); // ë§ˆì  íƒ€ ë°°ê²½ íˆ¬ëª… ì²˜ë¦¬
 	}
 
-	// 4. ±âÁ¸ Actorµé ·»´õ¸µ
+	// 4. ê¸°ì¡´ Actorë“¤ ë Œë”ë§
 	Level::Render(_dc);
 }
-
+*/
