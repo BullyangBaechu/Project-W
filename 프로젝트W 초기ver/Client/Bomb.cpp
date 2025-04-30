@@ -11,10 +11,10 @@ void Bomb::Init()
 	SetName(L"Bomb");
 
 	SetScale(Vec2(120.f, 120.f));
-	m_Tex = AssetMgr::GetInst()->LoadTexture(L"bomb", L"Texture\\bomb_cleaned.bmp");
+	m_Tex = AssetMgr::GetInst()->LoadTexture(L"bomb", L"Texture\\BombDrone.bmp");
 
 	m_Collider = AddComponent(new Collider);
-	m_Collider->SetScale(Vec2(100.f, 100.f)); // 테스트 용
+	m_Collider->SetScale(Vec2(80.f, 80.f)); // 테스트 용
 	// m_Collider->SetScale(GetScale()); -> 텍스쳐 넣으면 이거 쓰기
     m_speed = 500.f;
 
@@ -61,7 +61,7 @@ void Bomb::Render(HDC _dc)
             0, 0,
             (int)w,
             (int)h,
-            RGB(255, 0, 255)); // 마젠타 투명
+            RGB(255, 255, 255)); // 여백 투명
     }
 
     Actor::Render(_dc); // 디버그용 박스

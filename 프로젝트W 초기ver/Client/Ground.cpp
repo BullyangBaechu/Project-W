@@ -36,14 +36,16 @@ void Ground::Tick()
 	// 카메라 기준 X축 경계
 	float CamLeft_X = CamPos.x - (Res.x / 2);
 
+	
 	// Ground의 오른쪽 끝이 카메라 기준 왼쪽으로 벗어나면
-	if (GroundPos.x + GetScale().x / 2 < CamLeft_X)
+	if (GroundPos.x + GetScale().x / 2< CamLeft_X)
 	{
 		// BGidx만큼 뒤에 새로 반복해서 나타나게 하기
 		GroundPos.x += GetScale().x * BGidx;
 		SetPos(GroundPos);
 	}
 	// + GetScale().x / 2 
+	
 	
 }
 
@@ -56,6 +58,7 @@ void Ground::Render(HDC _dc)
 		float w = m_Tex->GetWidth();
 		float h = m_Tex->GetHeight();
 
+		
 		TransparentBlt(_dc,
 			(int)(renderPos.x - w / 2.f),
 			(int)(renderPos.y - h / 2.f),
@@ -66,6 +69,8 @@ void Ground::Render(HDC _dc)
 			(int)w,
 			(int)h,
 			RGB(255, 0, 255)); // 마젠타 투명
+
+		
 	}
 
 	Actor::Render(_dc); // 부모의 디버그 렌더링 호출

@@ -20,6 +20,7 @@
 #include "CollisionMgr.h"
 #include "AssetMgr.h"
 #include "SpawnMgr.h"
+#include "RenderMgr.h"
 
 
 RunningLevel::RunningLevel()
@@ -51,13 +52,7 @@ void RunningLevel::Enter()
 
 	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
 
-	// Player 생성
-	pActor = new Player;
-	pActor->SetName(L"Player");
-	pActor->SetPos(Vec2(100.f, 700.f));
-	pActor->SetScale(Vec2(100, 100));
-	AddObject(ACTOR_TYPE::PLAYER, pActor);
-	RegisterAsPlayer(pActor);
+	
 
 	// 예비 Ground 오브젝트 추가
 	//pActor = new Ground;
@@ -73,6 +68,7 @@ void RunningLevel::Enter()
 	pActor->SetScale(Vec2(1440.f, 96.f));
 	pActor->SetCamCheck(true);
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
+	 
 
 	// 반복 재생을 위한 2번째 Ground
 	pActor = new Ground;
@@ -82,6 +78,13 @@ void RunningLevel::Enter()
 	pActor->SetCamCheck(true);
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
+	// Player 생성
+	pActor = new Player;
+	pActor->SetName(L"Player");
+	pActor->SetPos(Vec2(100.f, 700.f));
+	pActor->SetScale(Vec2(100, 100));
+	AddObject(ACTOR_TYPE::PLAYER, pActor);
+	RegisterAsPlayer(pActor);
 
 	// SpawnMgr 불러오기
 	SpawnMgr::GetInst()->Init();
@@ -118,6 +121,12 @@ void RunningLevel::Tick()
 	float CamSpeed = Camera::GetInst()->GetCamSpeed();
 	cam.x += CamSpeed * DT; 
 	Camera::GetInst()->SetLookAt(cam);
+
+	float halfResX = Engine::GetInst()->GetResolution().x / 2.f;
+	float groundWidth = 1440.f;
+
+
+
 
 	if (KEY_TAP(KEY::F5))
 	{

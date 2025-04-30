@@ -18,7 +18,7 @@ void Brick::Init(int type)
 
 	IsHit = false;
 
-	SetScale(Vec2(100.f, 200.f));
+	SetScale(Vec2(100.f, 150.f));
 	SetName(L"Brick_" + to_wstring(type));
 
 	wstring key = L"brickLv" + to_wstring(type);
@@ -99,7 +99,7 @@ void Brick::Render(HDC _dc)
 			0, 0,
 			(int)w,
 			(int)h,
-			RGB(255, 0, 255)); // 마젠타 투명
+			RGB(255, 255, 255)); // 여백 투명
 	}
 	
 	Actor::Render(_dc); // 부모의 디버그 렌더링 호출

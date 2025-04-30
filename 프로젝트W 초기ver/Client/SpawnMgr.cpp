@@ -74,7 +74,7 @@ void SpawnMgr::SpawnRandomObject()
             Brick* brick = new Brick;
             int r = rand() % 100;
             int acc = 0, type = 1;
-            int weight[4] = { 50, 30, 15, 5 };
+            int weight[4] = { 50, 25, 15, 10};
 
             if (m_StageMode == STAGEMODE::INFINITERUN)
             {
@@ -122,8 +122,8 @@ void SpawnMgr::SpawnRandomObject()
         Vec2 CamPos = Camera::GetInst()->GetLookAt();
         Vec2 Res = Engine::GetInst()->GetResolution();
 
-        float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x;
-        float ObjectPos_y = CamPos.y - (Res.y / 2.f) + object->GetScale().y;
+        float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x/2;
+        float ObjectPos_y = CamPos.y - (Res.y / 2.f);
 
 
         Vec2 ObjectPos = Vec2(ObjectPos_x, ObjectPos_y);

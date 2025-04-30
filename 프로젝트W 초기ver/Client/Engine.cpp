@@ -91,7 +91,7 @@ void Engine::Progress()
     // Manager
     TimeMgr::GetInst()->Tick();
     KeyMgr::GetInst()->Tick();
-    //Camera::GetInst()->Tick();
+    Camera::GetInst()->Tick();
 
     // Level, Collision
     UIMgr::GetInst()->Tick();
@@ -107,7 +107,7 @@ void Engine::Progress()
     // Task
     TaskMgr::GetInst()->Tick();
 
-    Camera::GetInst()->Tick();
+    //Camera::GetInst()->Tick();
 }
 
 void Engine::ChangeWindowResolution(UINT _Width, UINT _Height)

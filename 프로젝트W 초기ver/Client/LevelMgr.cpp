@@ -7,6 +7,7 @@
 #include "EditorLevel.h"
 #include "TestLevel.h"
 #include "InfiniteLevel.h"
+#include "Camera.h"
 
 
 
@@ -37,6 +38,9 @@ void LevelMgr::Progress()
 {
 	if (nullptr == m_CurLevel)
 		return;
+
+	// 카메라 먼저 갱신
+	Camera::GetInst()->Tick();
 
 	// 1 프레임동안 Level 안에 있는 Actor 이 할 일을 수행한다.
 	m_CurLevel->Tick();

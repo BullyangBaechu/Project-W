@@ -11,6 +11,7 @@
 #include "Monster.h"
 #include "TileActor.h"
 #include "Ground.h"
+#include "BackGround.h"
 
 #include "CollisionMgr.h"
 
@@ -36,10 +37,12 @@ void TestLevel::Enter()
 	AddObject(ACTOR_TYPE::PLAYER, pActor);
 	RegisterAsPlayer(pActor);
 
-	// Ground 오브젝트 추가
+	// 진짜 Ground 추가
 	pActor = new Ground;
-	pActor->SetPos(Vec2(640.f, 700.f));
-	pActor->SetScale(Vec2(100, 100));
+	pActor->SetName(L"Ground");
+	pActor->SetPos(Vec2(720.f, GROUND_Y));
+	pActor->SetScale(Vec2(1440.f, 96.f));
+	pActor->SetCamCheck(true);
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
 	// Monster 생성
