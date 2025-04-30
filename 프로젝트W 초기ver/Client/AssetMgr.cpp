@@ -54,6 +54,13 @@ void AssetMgr::Init()
         }
     }
 
+    // 캐릭터 
+    Texture* pTex = LoadTexture(L"CyborgRunAtlas", L"Texture\\Cyborg_run_4x.bmp");
+    AssetMgr::GetInst()->CreateFlipbook(pTex, L"CyborgRun", 6, Vec2(0.f, 0.f), Vec2(192.f, 192.f));
+
+    Texture* pTexAtk = LoadTexture(L"CyborgAtkAtlas4x", L"Texture\\Cyborg_attack_4x.bmp");
+    CreateFlipbook(pTexAtk, L"CyborgAtk4x", 6, Vec2(0.f, 0.f), Vec2(192.f, 192.f));
+
 
     // Atlas 로 사용할 텍스쳐 로딩
     //Texture* pAtlas = LoadTexture(L"LinkAtlas", L"Texture\\link_32.bmp");
@@ -100,29 +107,29 @@ void AssetMgr::CreateFlipbook(Texture* _pAtlas, const wstring& _Name, int _Sprit
     // Sprite 제작
     for (int i = 0; i < _SpriteCount; ++i)
     {
-        //Sprite* pSprite = new Sprite;
-        //pSprite->Create(_pAtlas, _LeftTop + Vec2(i * 120.f, 0.f), _Slice);
+        Sprite* pSprite = new Sprite;
+        pSprite->Create(_pAtlas, _LeftTop + Vec2(i * _Slice.x, 0.f), _Slice);
 
-        //wchar_t szNum[10] = {};
-        //_itow_s(i, szNum, 10);
-
-        //wstring Key = _Name + L"_" + szNum;       
-
-        //pSprite->SetKey(Key);
-        ////pSprite->SetPath();
-        //m_mapSprite.insert(make_pair(Key, pSprite));
-
-        //// Sprite 를 파일로 저장
-        //pSprite->SetPath(L"Sprite\\" + Key + L".sprite");
-        //pSprite->Save(ContentPath + pSprite->GetPath());
-                
-        // 불러오기
         wchar_t szNum[10] = {};
         _itow_s(i, szNum, 10);
-        wstring Key = _Name + L"_" + szNum;    
 
-        wstring Path = L"Sprite\\" + Key + L".sprite";
-        LoadSprite(Key, Path);
+        wstring Key = _Name + L"_" + szNum;       
+
+        pSprite->SetKey(Key);
+        ////pSprite->SetPath();
+        m_mapSprite.insert(make_pair(Key, pSprite));
+
+        // Sprite 를 파일로 저장
+        pSprite->SetPath(L"Sprite\\" + Key + L".sprite");
+        pSprite->Save(ContentPath + pSprite->GetPath());
+                
+        // 불러오기
+        //wchar_t szNum[10] = {};
+        //_itow_s(i, szNum, 10);
+        //wstring Key = _Name + L"_" + szNum;    
+
+        //wstring Path = L"Sprite\\" + Key + L".sprite";
+        //LoadSprite(Key, Path);
     }
 
 

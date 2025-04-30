@@ -3,6 +3,7 @@
 
 #include "TimeMgr.h"
 #include "Actor.h"
+#include "Collider.h"
 
 
 RigidBody::RigidBody()
@@ -154,16 +155,30 @@ void RigidBody::BeltScroll()
 
 void RigidBody::CollisionResponse(Actor* pOwner, Actor* pOther)
 {
-	Vec2 myPos = pOwner->GetPos();
-	Vec2 otherPos = pOther->GetPos();
+	//Vec2 myPos = pOwner->GetPos();
+	//Vec2 otherPos = pOther->GetPos();
+	//Vec2 myScale = pOwner->GetScale();
+	//Vec2 otherScale = pOther->GetScale();
+	
+	// 실제 위치는 Actor 기준으로 조정해야 함
+	//Vec2 actorPos = pOwner->GetPos(); 
 
-	Vec2 myScale = pOwner->GetScale();
-	Vec2 otherScale = pOther->GetScale();
+	// 충돌 판정은 Collider 기준으로
+	Collider* myCol = pOwner->GetComponent<Collider>();
+	Collider* otherCol = pOther->GetComponent<Collider>();
+
+	Vec2 myScale = myCol->GetScale();
+	Vec2 otherScale = otherCol->GetScale();
+
+	Vec2 myPos = myCol->GetFinalPos();
+	Vec2 otherPos = otherCol->GetFinalPos();
 
 	Vec2 delta = otherPos - myPos;
 
 	float halfW = (myScale.x + otherScale.x) / 2.f;
 	float halfH = (myScale.y + otherScale.y) / 2.f;
+
+	
 
 	float overlapX = halfW - abs(delta.x);
 	float overlapY = halfH - abs(delta.y);
@@ -171,20 +186,25 @@ void RigidBody::CollisionResponse(Actor* pOwner, Actor* pOther)
 	// 우선 충돌한 축이 더 작은 쪽을 기준으로 충돌 방향 판단
 	if (overlapX < overlapY)
 	{
+		Vec2 correctedCenter;
 		// ← →
 		if (delta.x > 0.f)
 		{
 			// 내가 왼쪽에 있음 → 오른쪽에서 막힘
-			myPos.x = otherPos.x - halfW - 1.f;
+			correctedCenter.x = otherPos.x - halfW - 1;
+			//myPos.x = otherPos.x - halfW - 1.f;
 		}
 		else
 		{
 			// 내가 오른쪽에 있음 → 왼쪽에서 막힘
-			myPos.x = otherPos.x + halfW + 1.f;
+			correctedCenter.x = otherPos.x + halfW;
+			//myPos.x = otherPos.x + halfW + 1.f;
 		}
-
+		correctedCenter.y = myPos.y;
 		// X축 이동 정지
 		m_Velocity.x = 0.f;
+		Vec2 newActorPos = correctedCenter - myCol->GetOffset();
+		pOwner->SetPos(newActorPos);
 	}
 	/* 스펙 변경으로 인해 y축 충돌 여부 없음
 	else
@@ -212,5 +232,7 @@ void RigidBody::CollisionResponse(Actor* pOwner, Actor* pOther)
 		}
 	}
 	*/
-	pOwner->SetPos(myPos);
+
+	
+	//pOwner->SetPos(myPos);
 }

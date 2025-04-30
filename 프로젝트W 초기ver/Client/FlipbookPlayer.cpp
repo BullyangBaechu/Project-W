@@ -89,7 +89,7 @@ void FlipbookPlayer::Render(HDC _dc)
 				, int(pCurSprite->GetLeftTop().y)
 				, int(vSlice.x)
 				, int(vSlice.y)
-				, RGB(255, 0, 255));
+				, RGB(255, 255, 255));
 }
 
 void FlipbookPlayer::AddFlipbook(Flipbook* _Flipbook, int _Index)

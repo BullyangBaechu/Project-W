@@ -40,14 +40,24 @@ Player::Player()
 	// Collider 컴포넌트 2개 추가 및 값 설정	
 	m_HurtBox = AddComponent(new Collider);
 	m_HurtBox->SetName(L"HurtBox");
-	m_HurtBox->SetOffset(Vec2(-5.f, 14.f));
-	m_HurtBox->SetScale(Vec2(100.f, 100.f));
+	m_HurtBox->SetOffset(Vec2(-30.f, 0.f));
+	m_HurtBox->SetScale(Vec2(120.f, 192.f));
 
 	m_Texture = AssetMgr::GetInst()->LoadTexture(L"PlayerImage", L"Texture\\Fighter.bmp");
 
 	// FlipbookPlayer 컴포넌트 추가
 	m_FBPlayer = AddComponent(new FlipbookPlayer);		
 
+	// CyborgRun 하나만 등록
+	Flipbook* pFB = AssetMgr::GetInst()->LoadFlipbook(L"CyborgRun", L"Flipbook\\CyborgRun.flip");
+	m_FBPlayer->AddFlipbook(pFB, (int)PLAYER_ANIM::CYBORG_RUN);
+
+	// CyborgAttack 등록
+	Flipbook* pFBAtk = AssetMgr::GetInst()->LoadFlipbook(L"CyborgAtk4x", L"Flipbook\\CyborgAtk4x.flip");
+	m_FBPlayer->AddFlipbook(pFBAtk, (int)PLAYER_ANIM::CYBORG_ATTACK);
+
+
+	// 수업때 쓴 임시 데이터들 (맨 마지막에 삭제)
 	m_FBPlayer->AddFlipbook(AssetMgr::GetInst()->LoadFlipbook(L"PLAYER_IDLE_DOWN" , L"Flipbook\\PLAYER_IDLE_DOWN.flip" ), (int)PLAYER_ANIM::IDLE_DOWN);
 	m_FBPlayer->AddFlipbook(AssetMgr::GetInst()->LoadFlipbook(L"PLAYER_IDLE_LEFT" , L"Flipbook\\PLAYER_IDLE_LEFT.flip" ), (int)PLAYER_ANIM::IDLE_LEFT );
 	m_FBPlayer->AddFlipbook(AssetMgr::GetInst()->LoadFlipbook(L"PLAYER_IDLE_UP"   , L"Flipbook\\PLAYER_IDLE_UP.flip"   ), (int)PLAYER_ANIM::IDLE_UP   );
@@ -60,7 +70,10 @@ Player::Player()
 
 	// m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_DOWN, 5.f);
 	// 항상 오른쪽으로 달리게끔
-	m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f, 0, 0);
+	//m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f, 0, 0);
+
+	// 항상 오른쪽으로 달리게끔
+	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 
 	Flipbook* pFlipbook = m_FBPlayer->GetFlipbook((int)PLAYER_ANIM::IDLE_RIGHT);
 	Sprite* pSprite = pFlipbook->GetSprite(1);
@@ -155,7 +168,7 @@ void Player::Tick()
 		{
 			m_AttackCollider->SetEnable(false);
 			m_AttackCollider = nullptr;
-			m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f, 0, 0);
+			m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 		}
 	}
 
@@ -231,18 +244,19 @@ void Player::PlayerAttack()
 	//m_PrevAnimID = m_FBPlayer.ge
 
 	// 공격 플립북 재생 (임시로 왼쪽 Idle 넣기)
-	m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_LEFT, 10.f, 0, 1);
+	//m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_LEFT, 10.f, 0, 1);
+	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_ATTACK, 12.f, 0, 1);
 
 	// 공격 콜라이더 생성 
 	
 	m_AttackCollider = AddComponent(new Collider);
 	
 	m_AttackCollider->SetName(L"AttackBox");
-	m_AttackCollider->SetOffset(Vec2(40.f, 40.f));
+	m_AttackCollider->SetOffset(Vec2(0.f, 20.f));
 	m_AttackCollider->SetScale(Vec2(80.f, 30.f));
 	m_AttackCollider->SetEnable(true);
 
-	m_AttackTimer = 0.1f;
+	m_AttackTimer = 0.3f;
 }
 
 void Player::PlayerGuard()
@@ -263,7 +277,7 @@ void Player::PlayerGuard()
 void Player::ChangeFlipbook()
 {
 	// 항상 오른쪽으로 달리게끔
-	m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f,0,0);
+	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 
 	/*
 	if (KEY_TAP(KEY::LEFT))

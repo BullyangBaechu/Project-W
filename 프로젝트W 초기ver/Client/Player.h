@@ -18,6 +18,9 @@ enum class PLAYER_ANIM
     MOVE_DOWN,
     MOVE_LEFT,
     MOVE_RIGHT,
+
+    CYBORG_RUN,
+    CYBORG_ATTACK,
 };
 
 

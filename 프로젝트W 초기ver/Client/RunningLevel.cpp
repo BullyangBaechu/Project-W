@@ -82,7 +82,7 @@ void RunningLevel::Enter()
 	pActor = new Player;
 	pActor->SetName(L"Player");
 	pActor->SetPos(Vec2(100.f, 700.f));
-	pActor->SetScale(Vec2(100, 100));
+	pActor->SetScale(Vec2(120.f, 192.f));
 	AddObject(ACTOR_TYPE::PLAYER, pActor);
 	RegisterAsPlayer(pActor);
 
