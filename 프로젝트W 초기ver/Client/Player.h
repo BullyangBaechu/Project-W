@@ -21,6 +21,7 @@ enum class PLAYER_ANIM
 
     CYBORG_RUN,
     CYBORG_ATTACK,
+    CYBORG_GUARD,
 };
 
 

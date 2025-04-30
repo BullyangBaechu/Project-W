@@ -56,6 +56,10 @@ Player::Player()
 	Flipbook* pFBAtk = AssetMgr::GetInst()->LoadFlipbook(L"CyborgAtk4x", L"Flipbook\\CyborgAtk4x.flip");
 	m_FBPlayer->AddFlipbook(pFBAtk, (int)PLAYER_ANIM::CYBORG_ATTACK);
 
+	// CyborgGuard 등록
+	Flipbook* pFBGuard = AssetMgr::GetInst()->LoadFlipbook(L"CyborgGuard4x", L"Flipbook\\CyborgGuard4x.flip");
+	m_FBPlayer->AddFlipbook(pFBGuard, (int)PLAYER_ANIM::CYBORG_GUARD);
+
 
 	// 수업때 쓴 임시 데이터들 (맨 마지막에 삭제)
 	m_FBPlayer->AddFlipbook(AssetMgr::GetInst()->LoadFlipbook(L"PLAYER_IDLE_DOWN" , L"Flipbook\\PLAYER_IDLE_DOWN.flip" ), (int)PLAYER_ANIM::IDLE_DOWN);
@@ -184,6 +188,7 @@ void Player::Tick()
 		{
 			m_GuardCollider->SetEnable(false);
 			m_GuardCollider = nullptr;
+			m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 		}
 	}
 
@@ -261,6 +266,10 @@ void Player::PlayerAttack()
 
 void Player::PlayerGuard()
 {
+	// 방어 플립북 재생
+	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_GUARD, 12.f, 0, 1);
+	
+	
 	m_GuardCollider = AddComponent(new Collider);
 
 	m_GuardCollider->SetName(L"GuardBox");
@@ -269,7 +278,7 @@ void Player::PlayerGuard()
 	m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
 
-	m_GuardTimer = 1.0f;
+	m_GuardTimer = 0.5f;
 
 }
 

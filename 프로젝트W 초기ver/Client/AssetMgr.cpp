@@ -61,6 +61,8 @@ void AssetMgr::Init()
     Texture* pTexAtk = LoadTexture(L"CyborgAtkAtlas4x", L"Texture\\Cyborg_attack_4x.bmp");
     CreateFlipbook(pTexAtk, L"CyborgAtk4x", 6, Vec2(0.f, 0.f), Vec2(192.f, 192.f));
 
+    Texture* pTexGuard = LoadTexture(L"CyborgGuardAtlas4x", L"Texture\\Cyborg_guard_4x.bmp");
+    CreateFlipbook(pTexGuard, L"CyborgGuard4x", 6, Vec2(0.f, 0.f), Vec2(192.f, 192.f));
 
     // Atlas 로 사용할 텍스쳐 로딩
     //Texture* pAtlas = LoadTexture(L"LinkAtlas", L"Texture\\link_32.bmp");
