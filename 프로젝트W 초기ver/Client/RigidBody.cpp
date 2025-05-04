@@ -56,6 +56,7 @@ void RigidBody::FinalTick()
 
 void RigidBody::BeltScroll()
 {
+	
 	if (GetOwner() == nullptr)
 	{
 		OutputDebugString(L"[RigidBody::BeltScroll] GetOwner() is nullptr!\n");

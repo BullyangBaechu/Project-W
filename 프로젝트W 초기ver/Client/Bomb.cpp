@@ -15,6 +15,7 @@ void Bomb::Init()
 
 	m_Collider = AddComponent(new Collider);
 	m_Collider->SetScale(Vec2(80.f, 80.f)); // 테스트 용
+    m_Collider->SetEnable(true);
 	// m_Collider->SetScale(GetScale()); -> 텍스쳐 넣으면 이거 쓰기
     m_speed = 600.f;
 

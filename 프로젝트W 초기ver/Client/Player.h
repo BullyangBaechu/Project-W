@@ -31,6 +31,7 @@ class Player :
 private:
     float           m_Speed;            // 플레이어의 이동속력  
     float           m_SpeedMultiplier;  // 감속장판 계산을 위해 쓸 스탯
+    bool m_IsInSlowzone = false;        // 감속장판 안에 있는지 여부
     Texture*        m_Texture;
        
     Collider*       m_HurtBox;

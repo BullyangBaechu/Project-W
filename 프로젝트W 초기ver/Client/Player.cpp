@@ -38,13 +38,16 @@ Player::Player()
 	//, m_BlockLeft(false)
 	//, m_BlockRight(false)
 {
-	// Collider 컴포넌트 2개 추가 및 값 설정	
+	// Player의 Collider 컴포넌트개 추가 및 값 설정	
 	m_HurtBox = AddComponent(new Collider);
 	m_HurtBox->SetName(L"HurtBox");
 	m_HurtBox->SetOffset(Vec2(-30.f, 0.f));
 	m_HurtBox->SetScale(Vec2(120.f, 192.f));
 
-	m_Texture = AssetMgr::GetInst()->LoadTexture(L"PlayerImage", L"Texture\\Fighter.bmp");
+	
+
+
+	//m_Texture = AssetMgr::GetInst()->LoadTexture(L"PlayerImage", L"Texture\\Fighter.bmp");
 
 	// FlipbookPlayer 컴포넌트 추가
 	m_FBPlayer = AddComponent(new FlipbookPlayer);		
@@ -113,7 +116,7 @@ void Player::Tick()
 	float RelativePosX = Camera::GetInst()->GetLookAt().x;
 
 	// 2. 타겟 좌표 = 카메라(상대적) 좌표 + 절대 좌표
-	const float TargetX = RelativePosX + 300.f; 
+	const float TargetX = RelativePosX + 500.f; 
 	const float RecoverFactor = 10.f; // 보간 회복 속도 조절용
 
 	// 3. 타겟 좌표와 캐릭터 좌표의 x축 차이
@@ -128,6 +131,8 @@ void Player::Tick()
 	else
 	{
 		// 기준 위치로 돌아가기 위해 보간 힘 적용
+		
+
 		float recoverSpeed = deltaX * RecoverFactor * m_SpeedMultiplier;
 
 		m_RigidBody->AddForce(Vec2(recoverSpeed, 0.f));
@@ -184,6 +189,7 @@ void Player::Tick()
 		PlayerGuard();
 	if (m_GuardCollider && m_GuardCollider->IsEnable())
 	{
+		//CollisionMgr::GetInst()->RegisterCollider(ACTOR_TYPE::PLAYER, m_GuardCollider);
 		m_GuardTimer -= DT;
 		
 		if (m_GuardTimer <= 0.f)
@@ -193,6 +199,16 @@ void Player::Tick()
 			m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 		}
 	}
+
+	if (m_IsInSlowzone)
+		OutputDebugString(L"[슬로우존 상태] 감속 중입니다\n");
+	else
+		OutputDebugString(L"[정상] 일반 속도\n");
+
+	// 감속 적용
+	Vec2 vel = m_RigidBody->GetVelocity();
+	vel.x *= m_SpeedMultiplier;
+	m_RigidBody->SetVelocity(vel);
 
 	SetPos(vPos);
 }
@@ -218,6 +234,7 @@ void Player::PlayerGetExp()
 
 }
 // 안 쓰면 삭제 예정
+/*
 void Player::Shoot()
 {
 	// 미사일 객체 생성 및 위치, 크기 설정
@@ -240,7 +257,7 @@ void Player::Shoot()
 	// 카메라 진동효과 요청
 	Camera::GetInst()->SetOscillation(8.f, 20.f, 0.2f);
 }
-
+*/
 void Player::PlayerAttack()
 {
 	// 아직 남아 있는 공격 판정이 있다면 → 새로 생성 막기
@@ -275,10 +292,12 @@ void Player::PlayerGuard()
 	m_GuardCollider = AddComponent(new Collider);
 
 	m_GuardCollider->SetName(L"GuardBox");
-	m_GuardCollider->SetOffset(Vec2(-30.f, 0.f));
-	m_GuardCollider->SetScale(Vec2(100.f,100.f));
-	m_GuardCollider->SetColliderMode(ColliderType::Circle);
+	m_GuardCollider->SetOffset(Vec2(-40.f, -100.f));
+	m_GuardCollider->SetScale(Vec2(200.f,200.f));
+	//m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
+
+	//CollisionMgr::GetInst()->RegisterCollider(ACTOR_TYPE::PLAYER, m_GuardCollider);
 
 	m_GuardTimer = 0.5f;
 
@@ -324,6 +343,15 @@ void Player::Render(HDC _dc)
 	// 검은색 글자로 출력
 	SetTextColor(_dc, RGB(0, 0, 0));
 	TextOut(_dc, (int)screenPos.x, (int)screenPos.y, szText, (int)wcslen(szText));
+
+
+	Vec2 velocity = m_RigidBody->GetVelocity();
+
+	wchar_t szSpeed[128] = {};
+	swprintf_s(szSpeed, L"Speed: %.2f", velocity.x);
+	TextOut(_dc, 10, 30, szSpeed, (int)wcslen(szSpeed));
+
+
 }
 
 void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
@@ -382,33 +410,44 @@ void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCo
 	
 	}
 
-	else if (_OtherActor->GetActorType() == ACTOR_TYPE::SLOWZONE)
+	else if (_OtherActor->GetName() == L"Slowzone")
 	{
 		Slowzone* slowzone = (Slowzone*)_OtherActor;
-		m_SpeedMultiplier = slowzone->GetSlowRatio();
-		OutputDebugString(L"슬로우존 충돌\n");
+		m_SpeedMultiplier = 0.9f;
+		//m_SpeedMultiplier = slowzone->GetSlowRatio();
+
+		m_IsInSlowzone = true;
+
 	}
 }
 
 void Player::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
 {
+	if (_OtherActor->GetName() == L"Slowzone")
+	{
+		Slowzone* slowzone = (Slowzone*)_OtherActor;
+		m_SpeedMultiplier = 0.95f;
+		//m_SpeedMultiplier = slowzone->GetSlowRatio();
 
+		m_IsInSlowzone = true;
+	}
 }
 
 void Player::EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
 {	
-	if (_OtherActor->GetName() == L" Ground")
+	if (_OtherActor->GetName() == L"Ground")
 	{
-		m_RigidBody->SetGround(false);
+		//m_RigidBody->SetGround(false);
 	}
 	else if (_OtherActor->GetActorType() == ACTOR_TYPE::BRICK)
 	{
 		//m_BlockLeft = false;
 		//m_BlockRight = false;
 	}
-	else if (_OtherActor->GetActorType() == ACTOR_TYPE::SLOWZONE)
+	else if (_OtherActor->GetName() == L"Slowzone")
 	{
 		m_SpeedMultiplier = 1.f;
+		m_IsInSlowzone = false;
 	}
 }
 
