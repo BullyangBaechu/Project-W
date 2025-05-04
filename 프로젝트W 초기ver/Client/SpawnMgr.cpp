@@ -3,6 +3,7 @@
 #include "SpawnMgr.h"
 #include "Brick.h"
 #include "Bomb.h"
+#include "Slowzone.h"
 #include "LevelMgr.h"
 #include "Level.h"
 #include "TimeMgr.h"
@@ -19,7 +20,7 @@ SpawnMgr::~SpawnMgr()
 
 void SpawnMgr::Init()
 {
-    m_SpawnDelay = 1.f;
+    m_SpawnDelay = 2.f;
     m_MinSpawnDelay = 0.5f;
     m_DifficultyTime = 0.f;
     m_DelayDescreaseTime = 0.05f;
@@ -68,7 +69,7 @@ void SpawnMgr::SpawnRandomObject()
     {
         int randVal = rand() % 100;
 
-        if (randVal < 80)
+        if (randVal < 60)
         {
             // Brick 생성
             Brick* brick = new Brick;
@@ -100,7 +101,7 @@ void SpawnMgr::SpawnRandomObject()
             object = brick;
             LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BRICK, (Actor*)brick);
         }
-        else
+        else if(randVal < 80)
         {
             // Bomb 생성
             Bomb* bomb = new Bomb;
@@ -108,6 +109,15 @@ void SpawnMgr::SpawnRandomObject()
             bomb->SetTarget(dynamic_cast<Player*>(LevelMgr::GetInst()->GetPlayer()));
             object = bomb;
             LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::BOMB, (Actor*)bomb);
+        }
+        else
+        {
+            // Slowzone 생성
+            Slowzone* slowzone = new Slowzone;
+            slowzone->Init();
+            object = slowzone;
+            LevelMgr::GetInst()->GetCurrentLevel()->AddObject(ACTOR_TYPE::SLOWZONE, (Actor*)slowzone);
+
         }
 
         //if (object)
@@ -119,15 +129,32 @@ void SpawnMgr::SpawnRandomObject()
     if (object)
     {
         // 벽돌, 폭탄을 오른쪽 상단 구석에 스폰시키기
-        Vec2 CamPos = Camera::GetInst()->GetLookAt();
-        Vec2 Res = Engine::GetInst()->GetResolution();
 
-        float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x/2;
-        float ObjectPos_y = CamPos.y - (Res.y / 2.f);
+        if (object->GetActorType() == ACTOR_TYPE::BRICK || object->GetActorType() == ACTOR_TYPE::BOMB)
+        {
+            Vec2 CamPos = Camera::GetInst()->GetLookAt();
+            Vec2 Res = Engine::GetInst()->GetResolution();
+
+            float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x / 2;
+            float ObjectPos_y = CamPos.y - (Res.y / 2.f);
 
 
-        Vec2 ObjectPos = Vec2(ObjectPos_x, ObjectPos_y);
+            Vec2 ObjectPos = Vec2(ObjectPos_x, ObjectPos_y);
 
-        object->SetPos(ObjectPos);
+            object->SetPos(ObjectPos);
+        }
+        
+        if (object->GetActorType() == ACTOR_TYPE::SLOWZONE)
+        {
+            Vec2 CamPos = Camera::GetInst()->GetLookAt();
+            Vec2 Res = Engine::GetInst()->GetResolution();
+
+            float ObjectPos_x = CamPos.x + (Res.x / 2.f) - object->GetScale().x / 2;
+            float ObjectPos_y = GROUND_Y - 48.f - 25.f;
+
+            Vec2 ObjectPos = Vec2(ObjectPos_x, ObjectPos_y);
+
+            object->SetPos(ObjectPos);
+        }
     }
 }

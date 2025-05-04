@@ -163,6 +163,9 @@
     <Filter Include="Game\4. Actor\BackGround">
       <UniqueIdentifier>{528685f7-2aec-43a0-b96b-8825610c1549}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4. Actor\Slowzone">
+      <UniqueIdentifier>{2787ec0b-eb4b-4e9e-8eb5-5d3c44ed372d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -336,6 +339,9 @@
     <ClInclude Include="BackGround.h">
       <Filter>Game\4. Actor\BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="Slowzone.h">
+      <Filter>Game\4. Actor\Slowzone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -505,6 +511,9 @@
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>Game\4. Actor\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Slowzone.cpp">
+      <Filter>Game\4. Actor\Slowzone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

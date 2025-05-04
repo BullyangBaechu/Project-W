@@ -161,6 +161,7 @@
     <ClInclude Include="PanelUI.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RunningLevel.h" />
+    <ClInclude Include="Slowzone.h" />
     <ClInclude Include="SpawnMgr.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="func.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="PanelUI.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RunningLevel.cpp" />
+    <ClCompile Include="Slowzone.cpp" />
     <ClCompile Include="SpawnMgr.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="func.cpp" />

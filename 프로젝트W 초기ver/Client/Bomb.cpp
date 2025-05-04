@@ -16,7 +16,7 @@ void Bomb::Init()
 	m_Collider = AddComponent(new Collider);
 	m_Collider->SetScale(Vec2(80.f, 80.f)); // 테스트 용
 	// m_Collider->SetScale(GetScale()); -> 텍스쳐 넣으면 이거 쓰기
-    m_speed = 500.f;
+    m_speed = 600.f;
 
 
 }
@@ -77,7 +77,10 @@ void Bomb::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherColl
 
 void Bomb::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
 {
-   
+    if (_OtherCollider->GetName() == L"GuardBox" && _OtherCollider->IsEnable())
+    {
+        Destroy();
+    }
 }
 
 void Bomb::EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)

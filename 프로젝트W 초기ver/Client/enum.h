@@ -76,6 +76,7 @@ enum class ACTOR_TYPE
 	SPAWNER,
 	BRICK,
 	BOMB,
+	SLOWZONE,
 
 
 

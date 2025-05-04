@@ -19,11 +19,12 @@
 
 #include "Engine.h"
 #include "Camera.h"
-
+#include "Slowzone.h"
 
 
 Player::Player()
-	: m_Speed(500.f) // 초당 100 픽셀 이동	
+	: m_Speed(500.f)			// 초당 500 픽셀 이동
+	, m_SpeedMultiplier(1.f)	// 디폴트 값 (감속 장판 충돌 시 감소)
 	, m_Texture(nullptr)
 	, m_HurtBox(nullptr)
 	, m_FBPlayer(nullptr)
@@ -127,7 +128,8 @@ void Player::Tick()
 	else
 	{
 		// 기준 위치로 돌아가기 위해 보간 힘 적용
-		float recoverSpeed = deltaX * RecoverFactor;
+		float recoverSpeed = deltaX * RecoverFactor * m_SpeedMultiplier;
+
 		m_RigidBody->AddForce(Vec2(recoverSpeed, 0.f));
 	}
 	
@@ -273,8 +275,8 @@ void Player::PlayerGuard()
 	m_GuardCollider = AddComponent(new Collider);
 
 	m_GuardCollider->SetName(L"GuardBox");
-	m_GuardCollider->SetOffset(Vec2(0.f, 0.f));
-	m_GuardCollider->SetScale(Vec2(150.f,150.f));
+	m_GuardCollider->SetOffset(Vec2(-30.f, 0.f));
+	m_GuardCollider->SetScale(Vec2(100.f,100.f));
 	m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
 
@@ -379,6 +381,18 @@ void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCo
 
 	
 	}
+
+	else if (_OtherActor->GetActorType() == ACTOR_TYPE::SLOWZONE)
+	{
+		Slowzone* slowzone = (Slowzone*)_OtherActor;
+		m_SpeedMultiplier = slowzone->GetSlowRatio();
+		OutputDebugString(L"슬로우존 충돌\n");
+	}
+}
+
+void Player::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
+{
+
 }
 
 void Player::EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
@@ -391,6 +405,10 @@ void Player::EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherColl
 	{
 		//m_BlockLeft = false;
 		//m_BlockRight = false;
+	}
+	else if (_OtherActor->GetActorType() == ACTOR_TYPE::SLOWZONE)
+	{
+		m_SpeedMultiplier = 1.f;
 	}
 }
 
