@@ -20,7 +20,9 @@
 #include "Engine.h"
 #include "Camera.h"
 #include "Slowzone.h"
-
+#include "EffectActor.h"
+#include "LevelMgr.h"
+#include "Level.h"
 
 Player::Player()
 	: m_Speed(500.f)			// 초당 500 픽셀 이동
@@ -288,12 +290,22 @@ void Player::PlayerGuard()
 	// 방어 플립북 재생
 	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_GUARD, 12.f, 0, 1);
 	
+
+	
+	// 이펙트 액터 생성 및 설정
+	EffectActor* pEffect = new EffectActor;
+	pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"guardeffect"), 0.3f, nullptr); // 사운드 생략하려면 nullptr
+	//pEffect->SetPos(GetPos() + Vec2(-40.f, -100.f));
+	pEffect->SetFollowTarget(this, Vec2(-40.f, -100.f)); // 이 위치를 유지하며 따라옴
+
+	Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
 	
 	m_GuardCollider = AddComponent(new Collider);
 
 	m_GuardCollider->SetName(L"GuardBox");
 	m_GuardCollider->SetOffset(Vec2(-40.f, -100.f));
-	m_GuardCollider->SetScale(Vec2(200.f,200.f));
+	m_GuardCollider->SetScale(Vec2(150.f,150.f));
 	//m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
 
@@ -332,7 +344,7 @@ void Player::Render(HDC _dc)
 
 	// 문자열 만들기
 	wchar_t szText[128] = {};
-	swprintf_s(szText, L"Lv.%d  Exp: %.0f", m_Level, m_exp);
+	//swprintf_s(szText, L"Lv.%d  Exp: %.0f", m_Level, m_exp);
 
 	// 출력 위치 (좌상단 기준)
 	Vec2 screenPos = Vec2(10.f, 10.f);
@@ -349,7 +361,7 @@ void Player::Render(HDC _dc)
 
 	wchar_t szSpeed[128] = {};
 	swprintf_s(szSpeed, L"Speed: %.2f", velocity.x);
-	TextOut(_dc, 10, 30, szSpeed, (int)wcslen(szSpeed));
+	TextOut(_dc, 10, 10, szSpeed, (int)wcslen(szSpeed));
 
 
 }

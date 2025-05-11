@@ -93,6 +93,7 @@ void RunningLevel::Enter()
 	// Effect 텍스쳐 미리 등록
 	AssetMgr::GetInst()->LoadTexture(L"explosion", L"Texture\\explosion_effect_whitebg.bmp");
 	AssetMgr::GetInst()->LoadTexture(L"explosion2", L"Texture\\explosion_effect_whitebg_120x120.bmp");
+	AssetMgr::GetInst()->LoadTexture(L"guardeffect", L"Texture\\PlayerGuard_120x120.bmp");
 	
 
 

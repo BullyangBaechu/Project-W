@@ -28,6 +28,11 @@ void EffectActor::SetEffect(Texture* _tex, float _lifetime, Sound* _sound)
 
 void EffectActor::Tick()
 {
+    if (m_Target)
+    {
+        SetPos(m_Target->GetPos() + m_RelativeOffset); // 계속 따라가기
+    }
+
     m_Timer -= DT;
     if (m_Timer <= 0.f)
         Destroy();
