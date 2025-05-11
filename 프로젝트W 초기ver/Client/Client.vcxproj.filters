@@ -166,6 +166,9 @@
     <Filter Include="Game\4. Actor\Slowzone">
       <UniqueIdentifier>{2787ec0b-eb4b-4e9e-8eb5-5d3c44ed372d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4. Actor\EffectActor">
+      <UniqueIdentifier>{130acd97-4e16-408f-b18d-e46bd4b0fdef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -342,6 +345,9 @@
     <ClInclude Include="Slowzone.h">
       <Filter>Game\4. Actor\Slowzone</Filter>
     </ClInclude>
+    <ClInclude Include="EffectActor.h">
+      <Filter>Game\4. Actor\EffectActor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -514,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="Slowzone.cpp">
       <Filter>Game\4. Actor\Slowzone</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectActor.cpp">
+      <Filter>Game\4. Actor\EffectActor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

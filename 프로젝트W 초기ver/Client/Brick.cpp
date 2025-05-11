@@ -11,6 +11,10 @@
 #include "AssetMgr.h"
 #include "Ground.h"
 
+#include "EffectActor.h"
+#include "LevelMgr.h"
+#include "Level.h"
+
 void Brick::Init(int type)
 {
 	m_MaxHP = type;
@@ -35,13 +39,41 @@ void Brick::Init(int type)
 
 
 	m_RigidBody = AddComponent<RigidBody>(new RigidBody);
+
+	// 파괴 용
+	m_DestructionTimer = 0.3f;
+	m_bDestroyed = false;
+	//m_DestoryTex = AssetMgr::GetInst()->LoadTexture(L"bomb", L"Texture\\explosion_effect_whitebg_120x120.bmp");
+
 }
 
 void Brick::Hit(int dmg)
 {
 	m_CurHP -= dmg;
 	if (m_CurHP == 0)
+	{
+		StartDestroy();
 		Destroy();
+	}
+		//Destroy();
+}
+
+void Brick::StartDestroy()
+{
+	if (m_bDestroyed)
+		return;
+
+	m_bDestroyed = true;
+	m_DestructionTimer = 0.3f;
+
+	EffectActor* pEffect = new EffectActor;
+
+
+	pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"explosion2"), 0.3f, nullptr); // 사운드 생략하려면 nullptr
+	pEffect->SetPos(GetPos());
+	Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
+
 }
 
 void Brick::Tick()
@@ -55,7 +87,15 @@ void Brick::Tick()
 	m_RigidBody->SetGround(false);
 	Vec2 BrickPos = GetPos();
 	
-
+	if (m_bDestroyed)
+	{
+		m_DestructionTimer -= DT;
+		if (m_DestructionTimer <= 0.f)
+		{
+			Destroy();
+		}
+		return;
+	}
 	float HalfHeight = m_Collider->GetScale().y / 2.f;
 
 

@@ -19,9 +19,16 @@ private :
 
     bool IsHit;             // 피격 판정
 
+    // 파괴 용
+    Texture* m_DestoryTex;
+    float m_DestructionTimer;
+    bool m_bDestroyed;
+
 public:
     void Init(int type);    // type == 벽돌 종류
     void Hit(int dmg);      // 캐릭터 dmg
+
+    void StartDestroy();        // 파괴 시 호출할 함수
 
     virtual void Tick() override;
     virtual void Render(HDC _dc) override;

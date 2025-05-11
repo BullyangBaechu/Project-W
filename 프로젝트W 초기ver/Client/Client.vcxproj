@@ -152,6 +152,7 @@
     <ClInclude Include="CollisionMgr.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="EditorLevel.h" />
+    <ClInclude Include="EffectActor.h" />
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookPlayer.h" />
     <ClInclude Include="Force.h" />
@@ -214,6 +215,7 @@
     <ClCompile Include="EditorLevel.cpp" />
     <ClCompile Include="EditorLevel_Init.cpp" />
     <ClCompile Include="EditorLevel_Proc.cpp" />
+    <ClCompile Include="EffectActor.cpp" />
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookPlayer.cpp" />
     <ClCompile Include="Force.cpp" />

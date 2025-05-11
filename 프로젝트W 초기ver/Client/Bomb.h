@@ -17,8 +17,16 @@ private :
     Player* m_Target;           // 추적 타겟 = player
     float m_speed;
     
+
+    // 파괴 용
+    Texture* m_DestoryTex;
+    float m_DestructionTimer;
+    bool m_bDestroyed;
+
+
 public:
     void SetTarget(Player* _player) { m_Target = _player; }
+    void StartDestroy();        // 파괴 시 호출할 함수
 
 public:
     void Init();

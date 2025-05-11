@@ -1,2 +1,8 @@
-﻿  Player.cpp
-  Client.vcxproj -> C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe
+﻿  Bomb.cpp
+C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Bomb.cpp(95,17): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Bomb.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Bomb.cpp(96,17): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/Bomb.cpp'을(를) 컴파일하는 중)
+  
+  Client.vcxproj -> C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe

@@ -77,7 +77,7 @@ enum class ACTOR_TYPE
 	BRICK,
 	BOMB,
 	SLOWZONE,
-
+	EFFECT,
 
 
 

@@ -69,6 +69,7 @@ void RunningLevel::Enter()
 	pActor->SetCamCheck(true);
 	AddObject(ACTOR_TYPE::PLATFORM, pActor);
 	 
+	
 
 	// 반복 재생을 위한 2번째 Ground
 	pActor = new Ground;
@@ -89,6 +90,13 @@ void RunningLevel::Enter()
 	// SpawnMgr 불러오기
 	SpawnMgr::GetInst()->Init();
 
+	// Effect 텍스쳐 미리 등록
+	AssetMgr::GetInst()->LoadTexture(L"explosion", L"Texture\\explosion_effect_whitebg.bmp");
+	AssetMgr::GetInst()->LoadTexture(L"explosion2", L"Texture\\explosion_effect_whitebg_120x120.bmp");
+	
+
+
+	// 충돌체크
 	CollisionMgr::GetInst()->CollisionCheckClear();
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::ENERMY, true);
 	CollisionMgr::GetInst()->CollisionCheck(ACTOR_TYPE::PLAYER, ACTOR_TYPE::PLATFORM, true);
