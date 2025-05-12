@@ -18,6 +18,9 @@ private:
 	// DebugShape 정보
 	list<tDebugShape>	m_ShapeList;
 
+	// 디버깅 토글 용
+	bool				m_bDebugRenderToggle;
+
 public:
 	int Init(Vec2 _Resoution);
 	void Progress();

@@ -10,12 +10,14 @@
 
 #include "Camera.h"
 #include "TimeMgr.h"
+#include "KeyMgr.h"
 
 RenderMgr::RenderMgr()
     : m_DC(nullptr)
     , m_BBTex(nullptr)
     , m_Pen{}
     , m_Brush{}
+    , m_bDebugRenderToggle(false)
 {
 
 }
@@ -57,6 +59,12 @@ void RenderMgr::Progress()
     if (nullptr == pCurLevel)
         return;
 
+    // 디버그 렌더 토글
+    if (KEY_TAP(KEY::F8))
+    {
+        m_bDebugRenderToggle = !m_bDebugRenderToggle;
+    }
+
     // ======
     // 렌더링
     // ======
@@ -70,7 +78,10 @@ void RenderMgr::Progress()
     Camera::GetInst()->Render(m_BBTex->GetDC());
 
     // 4. 디버그 렌더링
-    DebugRender();
+    if (m_bDebugRenderToggle)
+    {
+        DebugRender();
+    }
 
     // 5. 백버퍼에 Actor 들을 그리고, 백버퍼를 메인 윈도우 비트맵에 복사시킨다.
     BitBlt( m_DC, 0, 0
