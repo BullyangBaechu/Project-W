@@ -50,15 +50,10 @@ void RunningLevel::Enter()
 	
 	
 
-	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
+	//m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");
 
 	
 
-	// 예비 Ground 오브젝트 추가
-	//pActor = new Ground;
-	//pActor->SetPos(Vec2(640.f, GROUND_Y + 50));
-	////pActor->SetScale(Vec2(10000, 100));
-	//AddObject(ACTOR_TYPE::PLATFORM, pActor);
 
 	
 	// 진짜 Ground 추가
