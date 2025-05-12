@@ -77,13 +77,13 @@ void BackGround::Render(HDC _dc)
         Vec2 res = Engine::GetInst()->GetResolution();
 
 
-        float w = m_Tex->GetWidth();
-        float h = m_Tex->GetHeight();
+        //float w = m_Tex->GetWidth();
+        //float h = m_Tex->GetHeight();
 
         float parallaxX = (camPos.x - 720.f) * (1.0f - m_ParallaxFactor);
         renderPos.x -= parallaxX; // 원근 적용
 
-        /*
+        
          // 1. 반복 개수 구함
         float w = m_Tex->GetWidth();
         float h = m_Tex->GetHeight();
@@ -112,23 +112,14 @@ void BackGround::Render(HDC _dc)
                 (int)h,
                 RGB(255, 0, 255));
         }
-        */
+        
 
 
-        TransparentBlt(_dc,
-            (int)(renderPos.x - w / 2.f),
-            (int)(renderPos.y - h / 2.f),
-            (int)w,
-            (int)h,
-            m_Tex->GetDC(),
-            0, 0,
-            (int)w,
-            (int)h,
-            RGB(255, 0, 255));
+        
 
 
         //TransparentBlt(_dc,(int)(renderPos.x - w / 2.f),(int)(renderPos.y - h / 2.f),(int)w,(int)h,m_Tex->GetDC(),0, 0,(int)w,(int)h, RGB(255, 0, 255));
     }
 
-    Actor::Render(_dc);
+    //Actor::Render(_dc);
 }

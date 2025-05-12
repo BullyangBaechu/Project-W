@@ -73,7 +73,7 @@ void Ground::Render(HDC _dc)
 		
 	}
 
-	Actor::Render(_dc); // 부모의 디버그 렌더링 호출
+	//Actor::Render(_dc); // 부모의 디버그 렌더링 호출
 }
 
 

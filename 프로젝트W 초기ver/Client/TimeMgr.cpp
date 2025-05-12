@@ -46,8 +46,8 @@ void TimeMgr::Tick()
 	{
 		m_Time -= 1.f;
 
-		wchar_t szBuff[100] = {};
-		swprintf_s(szBuff, 100, L"FSP : %d, DT : %f, %s", m_CallCount, m_DeltaTime, PathMgr::GetInst()->GetBinPath());
+		wchar_t szBuff[255] = {};
+		swprintf_s(szBuff, 255, L"FSP : %d, DT : %f, %s", m_CallCount, m_DeltaTime, PathMgr::GetInst()->GetBinPath());
 		SetWindowText(Engine::GetInst()->GetMainWnd(), szBuff);
 
 		m_CallCount = 0;

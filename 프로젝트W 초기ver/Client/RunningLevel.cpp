@@ -39,7 +39,7 @@ void RunningLevel::Enter()
 	Vec2 vResolution = Engine::GetInst()->GetResolution();
 	Camera::GetInst()->SetLookAt(vResolution / 2.f);
 
-	/*
+	
 	// 배경 생성
 	pActor = new BackGround;
 	pActor->SetName(L"BackGround");
@@ -47,7 +47,7 @@ void RunningLevel::Enter()
 	pActor->SetScale(Vec2(1440.f, 900.f));
 	pActor->SetCamCheck(false);
 	AddObject(ACTOR_TYPE::BACKGROUND, pActor);
-	*/
+	
 	
 
 	m_BGTex = AssetMgr::GetInst()->LoadTexture(L"BG", L"Texture\\BackGroundFactory.bmp");

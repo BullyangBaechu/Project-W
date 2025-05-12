@@ -54,7 +54,7 @@ void EffectActor::Render(HDC _dc)
         m_Tex->GetWidth(), m_Tex->GetHeight(),
         RGB(255, 255, 255)); // 투명색 처리
 
-    Actor::Render(_dc); // 디버그용 박스
+    //Actor::Render(_dc); // 디버그용 박스
 }
 
 

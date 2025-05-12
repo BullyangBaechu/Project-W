@@ -142,7 +142,7 @@ void Brick::Render(HDC _dc)
 			RGB(255, 255, 255)); // 여백 투명
 	}
 	
-	Actor::Render(_dc); // 부모의 디버그 렌더링 호출
+	//Actor::Render(_dc); // 부모의 디버그 렌더링 호출
 }
 
 // 벽돌 피격 판정 충돌 로직
