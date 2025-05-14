@@ -25,46 +25,6 @@ void BackGround::Tick()
 {
 }
 
-/*
-void BackGround::Tick()
-{
-    // 카메라 현재 좌표 가져옴
-    Vec2 camPos = Camera::GetInst()->GetLookAt();
-
-    // 배경의 위치 = 카메라 위치 * 패럴랙스 비율
-    Vec2 newPos;
-    newPos.x = (camPos.x) * m_ParallaxFactor;
-    newPos.y = 450.f; // 배경은 고정된 y위치
-
-    SetPos(newPos);
-}
-
-/*
-
-void BackGround::Tick()
-{
-    Vec2 bgPos;
-    Vec2 CamPos = Camera::GetInst()->GetLookAt();
-    Vec2 Res = Engine::GetInst()->GetResolution();
-
-    bgPos.x = m_InitialPos.x + (CamPos.x * m_ParallaxFactor);
-    bgPos.y = m_InitialPos.y;
-
-    SetPos(bgPos);
-
-    // 카메라 왼쪽 경계 x축
-    float CamLeft_X = CamPos.x - (Res.x / 2.f);
-
-    // 원근감을 반영한 배경 이동 (Parallax)
-    float relativeX = (CamPos.x * m_ParallaxFactor);
-
-    // 반복 이동 처리
-    if (bgPos.x + GetScale().x / 2.f < CamLeft_X)
-    {
-       m_InitialPos.x += GetScale().x * 2;
-    }
-}
-*/
 void BackGround::Render(HDC _dc)
 {
     //OutputDebugString(L"[Background Render 호출됨]\n");

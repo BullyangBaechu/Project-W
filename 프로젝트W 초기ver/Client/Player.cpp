@@ -226,12 +226,19 @@ void Player::PlayerGetExp()
 		m_exp += distance;
 	}
 
-	static float expThresholds[5] = { 0.f, 1000.f, 3000.f, 6000.f, 10000.f };
+	static float expThresholds[5] = { 0.f, 10000.f, 50000.f, 100000.f, 160000.f };
 
 	while (m_Level < 5 && m_exp >= expThresholds[m_Level])
 	{
 		++m_Level;
 		// 필요하면 레벨업 이펙트/사운드 추가
+		++m_MaxHP;
+
+		//  2레벨 단위로 Dmg 1 증가 (레벨 2, 4 때 증가)
+		if (m_Level % 2 == 0)
+		{
+			++m_Dmg;
+		}
 	}
 
 }
@@ -339,12 +346,35 @@ void Player::Render(HDC _dc)
 {	
 	m_FBPlayer->Render(_dc);
 
+
+	// ====== 폰트 설정 ======
+	HFONT hFont = CreateFont(
+		20,                // Height (크게 하고 싶으면 숫자 올리면 됨)
+		0,                 // Width (0이면 Height 기준 자동 조절)
+		0,                 // Escapement
+		0,                 // Orientation
+		FW_BOLD,           // Weight (굵기, FW_NORMAL/FW_BOLD 등)
+		FALSE,             // Italic
+		FALSE,             // Underline
+		FALSE,             // StrikeOut
+		DEFAULT_CHARSET,   // Charset
+		OUT_DEFAULT_PRECIS,// OutputPrecision
+		CLIP_DEFAULT_PRECIS,// ClipPrecision
+		DEFAULT_QUALITY,   // Quality
+		DEFAULT_PITCH | FF_DONTCARE, // PitchAndFamily
+		L"굴림체"           // Font name (원하는 폰트 이름으로 바꿔도 됨)
+	);
+
+	HFONT hOldFont = (HFONT)SelectObject(_dc, hFont);
+
+
+
 	// 임시 UI
 	// ====== HUD: 레벨/경험치 표시 ======
 
 	// 문자열 만들기
 	wchar_t szText[128] = {};
-	//swprintf_s(szText, L"Lv.%d  Exp: %.0f", m_Level, m_exp);
+	swprintf_s(szText, L"Lv.%d Dmg: %d Life: %d", m_Level, m_Dmg, m_MaxHP);
 
 	// 출력 위치 (좌상단 기준)
 	Vec2 screenPos = Vec2(10.f, 10.f);
@@ -356,14 +386,16 @@ void Player::Render(HDC _dc)
 	SetTextColor(_dc, RGB(0, 0, 0));
 	TextOut(_dc, (int)screenPos.x, (int)screenPos.y, szText, (int)wcslen(szText));
 
-
+	// ====== HUD: 속도 표시 (디버그 용) ======
 	Vec2 velocity = m_RigidBody->GetVelocity();
 
 	wchar_t szSpeed[128] = {};
 	swprintf_s(szSpeed, L"Speed: %.2f", velocity.x);
-	TextOut(_dc, 10, 10, szSpeed, (int)wcslen(szSpeed));
+	TextOut(_dc, 10, 100, szSpeed, (int)wcslen(szSpeed));
 
-
+	// ====== 폰트 원상복구 및 삭제 ======
+	SelectObject(_dc, hOldFont);
+	DeleteObject(hFont);
 }
 
 void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)

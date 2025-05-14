@@ -50,7 +50,7 @@ void Brick::Init(int type)
 void Brick::Hit(int dmg)
 {
 	m_CurHP -= dmg;
-	if (m_CurHP == 0)
+	if (m_CurHP <= 0)
 	{
 		StartDestroy();
 		Destroy();
