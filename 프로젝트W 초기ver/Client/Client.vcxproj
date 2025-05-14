@@ -160,8 +160,10 @@
     <ClInclude Include="IdleMon.h" />
     <ClInclude Include="InfiniteLevel.h" />
     <ClInclude Include="PanelUI.h" />
+    <ClInclude Include="ProgressBarUI.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RunningLevel.h" />
+    <ClInclude Include="SimpleBarUI.h" />
     <ClInclude Include="Slowzone.h" />
     <ClInclude Include="SpawnMgr.h" />
     <ClInclude Include="Sprite.h" />
@@ -223,8 +225,10 @@
     <ClCompile Include="IdleMon.cpp" />
     <ClCompile Include="InfiniteLevel.cpp" />
     <ClCompile Include="PanelUI.cpp" />
+    <ClCompile Include="ProgressBarUI.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RunningLevel.cpp" />
+    <ClCompile Include="SimpleBarUI.cpp" />
     <ClCompile Include="Slowzone.cpp" />
     <ClCompile Include="SpawnMgr.cpp" />
     <ClCompile Include="Sprite.cpp" />

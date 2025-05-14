@@ -21,9 +21,13 @@
 #include "AssetMgr.h"
 #include "SpawnMgr.h"
 #include "RenderMgr.h"
+#include "Actor.h"
 
+#include "SimpleBarUI.h"
+#include "ProgressBarUI.h"
 
 RunningLevel::RunningLevel()
+	: m_GoalX(210000.f)
 {
 }
 
@@ -91,6 +95,24 @@ void RunningLevel::Enter()
 	AssetMgr::GetInst()->LoadTexture(L"guardeffect", L"Texture\\PlayerGuard_120x120.bmp");
 	
 
+	// 진행도 UI
+	m_ProgressBar = new ProgressBarUI;
+	m_ProgressBar->SetPos(Vec2(600.f, 20.f));
+	AddObject(ACTOR_TYPE::UI, m_ProgressBar);
+
+	SimpleBarUI* backbar = new SimpleBarUI;
+	backbar->SetScale(Vec2(400.f, 30.f));
+	backbar->SetColor(RGB(100, 100, 100));
+	m_ProgressBar->AddChildUI(backbar);
+
+	SimpleBarUI* fillbar = new SimpleBarUI;
+	fillbar->SetColor(RGB(0, 255, 0));
+	m_ProgressBar->AddChildUI(fillbar);
+
+	m_ProgressBar->SetFillBar(fillbar);
+
+
+
 
 	// 충돌체크
 	CollisionMgr::GetInst()->CollisionCheckClear();
@@ -132,7 +154,26 @@ void RunningLevel::Tick()
 	float halfResX = Engine::GetInst()->GetResolution().x / 2.f;
 	float groundWidth = 1440.f;
 
+	// Player 진행도 체크
+	Actor* pActor = GetPlayer();
+	if (pActor)
+	{
+		float playerX = pActor->GetPos().x;
+		float progress = (playerX / m_GoalX) * 100.f;
 
+		if (progress < 1.f)
+			progress = 1.f;
+		if (progress > 100.f)
+			progress = 100.f;
+
+		if (m_ProgressBar)
+			m_ProgressBar->SetProgress(progress);
+	}
+
+
+
+
+	///////
 
 
 	if (KEY_TAP(KEY::F5))

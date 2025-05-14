@@ -169,6 +169,9 @@
     <Filter Include="Game\4. Actor\EffectActor">
       <UniqueIdentifier>{130acd97-4e16-408f-b18d-e46bd4b0fdef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\4. Actor\UI\FillBar">
+      <UniqueIdentifier>{fd7c6c5d-97cd-49e3-bc51-c9ef11781b01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -348,6 +351,12 @@
     <ClInclude Include="EffectActor.h">
       <Filter>Game\4. Actor\EffectActor</Filter>
     </ClInclude>
+    <ClInclude Include="ProgressBarUI.h">
+      <Filter>Game\4. Actor\UI\FillBar</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleBarUI.h">
+      <Filter>Game\4. Actor\UI\FillBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -523,6 +532,12 @@
     </ClCompile>
     <ClCompile Include="EffectActor.cpp">
       <Filter>Game\4. Actor\EffectActor</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgressBarUI.cpp">
+      <Filter>Game\4. Actor\UI\FillBar</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleBarUI.cpp">
+      <Filter>Game\4. Actor\UI\FillBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

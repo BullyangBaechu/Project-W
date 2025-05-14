@@ -1,21 +1,2 @@
-﻿  Collider.cpp
-  Engine.cpp
-  Player.cpp
-  RenderMgr.cpp
-  RunningLevel.cpp
-  Texture.cpp
-  func.cpp
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Texture.cpp(59,43): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Texture.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Texture.cpp(59,38): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Texture.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Texture.cpp(59,33): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Texture.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\Texture.cpp(59,28): warning C4244: '인수': 'float'에서 'BYTE'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/Texture.cpp'을(를) 컴파일하는 중)
-  
-  코드를 생성하고 있습니다...
-  Client.vcxproj -> C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe
+﻿  ProgressBarUI.cpp
+  Client.vcxproj -> C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe

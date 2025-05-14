@@ -19,6 +19,10 @@ private:
     UI*         m_ParentUI;
     vector<UI*> m_vecChildUI;
 
+protected:
+    COLORREF m_color;
+
+
 public:
     Vec2 GetFinalPos() { return m_FinalPos; }
     void AddChildUI(UI* _ChildUI)
@@ -36,6 +40,9 @@ public:
     virtual void Render(HDC _DC) final;
     virtual void Render_UI(HDC _dc) = 0;
          
+public:
+    void SetColor(COLORREF _color) { m_color = _color; }
+    COLORREF GetColor() const { return m_color; }
 
 private:
     void LBtnDown_Mgr()
