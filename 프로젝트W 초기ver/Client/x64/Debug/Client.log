@@ -1,2 +1,20 @@
-﻿  Player.cpp
+﻿  GameOverLevel.cpp
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(82,51): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(91,53): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(119,48): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(126,51): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(128,47): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\Client\GameOverLevel.cpp(133,48): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/GameOverLevel.cpp'을(를) 컴파일하는 중)
+  
   Client.vcxproj -> C:\Users\gogof\Desktop\프로젝트W\Project-W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe

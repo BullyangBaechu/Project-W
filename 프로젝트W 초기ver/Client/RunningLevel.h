@@ -15,6 +15,12 @@ private:
 
     ProgressBarUI* m_ProgressBar;   // 진행도 게이지 UI
 
+
+    // GameOver 용
+    bool m_IsGameOver;
+    float m_GameOverTimer;
+    
+
 public:
     virtual void Enter() override;
     virtual void Tick()  override;

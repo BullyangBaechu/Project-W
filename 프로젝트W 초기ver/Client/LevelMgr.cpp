@@ -7,6 +7,7 @@
 #include "EditorLevel.h"
 #include "TestLevel.h"
 #include "InfiniteLevel.h"
+#include "GameOverLevel.h"
 #include "Camera.h"
 
 
@@ -30,6 +31,7 @@ void LevelMgr::Init()
 	m_AllLevel[(UINT)LEVEL_TYPE::EDITOR] = new EditorLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::TEST] = new TestLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::INFINITYMODE] = new InfiniteLevel;
+	m_AllLevel[(UINT)LEVEL_TYPE::GAMEOVER] = new GameOverLevel;
 
 	::ChangeLevel(LEVEL_TYPE::START);
 }

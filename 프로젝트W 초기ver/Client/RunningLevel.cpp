@@ -28,6 +28,8 @@
 
 RunningLevel::RunningLevel()
 	: m_GoalX(210000.f)
+	, m_IsGameOver(false)
+	, m_GameOverTimer(0.f)
 {
 }
 
@@ -133,6 +135,23 @@ void RunningLevel::Enter()
 
 void RunningLevel::Tick()
 {
+
+	// GameOver 체크
+	if (m_IsGameOver)
+	{
+		m_GameOverTimer += DT; // 시간 누적
+
+		if (m_GameOverTimer >= 2.f)
+		{
+			// 2초 후 GameOverLevel로 전환
+			ChangeLevel(LEVEL_TYPE::GAMEOVER);
+			return;
+		}
+
+		return; // 게임 오버 상태에서는 나머지 로직 멈춤
+	}
+
+
 	Level::Tick();
 
 	// SpawnMgr 로직 시작
@@ -171,7 +190,21 @@ void RunningLevel::Tick()
 	}
 
 
+	// GameOver 조건 체크
+	//if (m_Player->GetPos().x < -50.f || m_Player->IsDead())
+	Vec2 camPos = Camera::GetInst()->GetLookAt();
+	Vec2 res = Engine::GetInst()->GetResolution();
 
+	Player* pPlayer = dynamic_cast<Player*>(GetPlayer());
+	Vec2 playerPos = pPlayer->GetPos() - camPos + res / 2.f;
+
+	
+
+	if(playerPos.x <-50.f || pPlayer->GetHP() <= 0)
+	{
+		m_IsGameOver = true;
+		m_GameOverTimer = 0.f;
+	}
 
 	///////
 
@@ -196,6 +229,49 @@ void RunningLevel::Render(HDC _dc)
 {
 
 	Level::Render(_dc);
+
+	if (m_IsGameOver)
+	{
+		// GameOver 텍스트 띄우기
+		const wchar_t* gameOverText = L"YOU DIED";
+
+		HFONT hFont = CreateFont(
+			150,      // 폰트 높이 (크기) 
+			0,        // 너비 (0이면 자동 비율 유지)
+			0, 0,     // 기울기, 회전 각도
+			FW_HEAVY, // 굵기: FW_BOLD(굵음), FW_HEAVY(매우 굵음), FW_NORMAL(보통)
+			FALSE,    // 이탤릭 여부
+			FALSE,    // 밑줄 여부
+			FALSE,    // 취소선 여부
+			HANGUL_CHARSET,
+			OUT_DEFAULT_PRECIS,
+			CLIP_DEFAULT_PRECIS,
+			DEFAULT_QUALITY,
+			DEFAULT_PITCH | FF_SWISS,
+			L"Optimus Princeps"  // 폰트 이름 
+		);
+
+		HFONT hOldFont = (HFONT)SelectObject(_dc, hFont);
+
+		// 폰트 컬러
+		SetTextColor(_dc, RGB(170, 30, 30));
+		SetBkMode(_dc, TRANSPARENT);
+
+		SIZE textSize;
+		GetTextExtentPoint32(_dc, gameOverText, wcslen(gameOverText), &textSize);
+
+		int centerX = (1440 - textSize.cx) / 2;
+		// Y축 원하는 값으로 OffSet 설정
+		int offsetY = -200;
+		int centerY = (1080 - textSize.cy) / 2 + offsetY;
+
+		TextOut(_dc, centerX, centerY, gameOverText, wcslen(gameOverText));
+
+		SelectObject(_dc, hOldFont);
+		::DeleteObject(hFont);
+
+	}
+
 }
 
 // 세그먼트 구조 완성 시 삭제될 듯? 

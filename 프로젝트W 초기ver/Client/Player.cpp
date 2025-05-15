@@ -372,7 +372,7 @@ void Player::Render(HDC _dc)
 
 	// ====== 폰트 설정 ======
 	HFONT hFont = CreateFont(
-		20,                // Height (크게 하고 싶으면 숫자 올리면 됨)
+		30,                // Height (크게 하고 싶으면 숫자 올리면 됨)
 		0,                 // Width (0이면 Height 기준 자동 조절)
 		0,                 // Escapement
 		0,                 // Orientation
@@ -397,7 +397,7 @@ void Player::Render(HDC _dc)
 
 	// 문자열 만들기
 	wchar_t szText[128] = {};
-	swprintf_s(szText, L"Lv.%d Dmg: %d Life: %d", m_Level, m_Dmg, m_MaxHP);
+	swprintf_s(szText, L"Lv : %d Dmg : %d LifeCount : %d", m_Level, m_Dmg, m_MaxHP);
 
 	// 출력 위치 (좌상단 기준)
 	Vec2 screenPos = Vec2(10.f, 10.f);

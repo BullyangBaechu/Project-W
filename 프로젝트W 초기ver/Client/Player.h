@@ -77,6 +77,7 @@ public:
     virtual void EndOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider) override;
 
     int GetPlayerDmg() { return m_Dmg; }
+    int GetHP() { return m_MaxHP; }
 
     virtual bool CamCheck() override;
 

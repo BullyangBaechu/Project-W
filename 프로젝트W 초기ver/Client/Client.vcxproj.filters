@@ -172,6 +172,9 @@
     <Filter Include="Game\4. Actor\UI\FillBar">
       <UniqueIdentifier>{fd7c6c5d-97cd-49e3-bc51-c9ef11781b01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\3. Level\03.GameOverLevel">
+      <UniqueIdentifier>{2268761d-dba0-481b-a8f6-d0a872b34e2f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h">
@@ -357,6 +360,9 @@
     <ClInclude Include="SimpleBarUI.h">
       <Filter>Game\4. Actor\UI\FillBar</Filter>
     </ClInclude>
+    <ClInclude Include="GameOverLevel.h">
+      <Filter>Game\3. Level\03.GameOverLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -538,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="SimpleBarUI.cpp">
       <Filter>Game\4. Actor\UI\FillBar</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverLevel.cpp">
+      <Filter>Game\3. Level\03.GameOverLevel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

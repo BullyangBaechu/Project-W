@@ -7,6 +7,7 @@ enum class LEVEL_TYPE
 	EDITOR,
 	TEST,
 	INFINITYMODE,
+	GAMEOVER,
 
 	END,
 };

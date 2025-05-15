@@ -156,6 +156,7 @@
     <ClInclude Include="Flipbook.h" />
     <ClInclude Include="FlipbookPlayer.h" />
     <ClInclude Include="Force.h" />
+    <ClInclude Include="GameOverLevel.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="IdleMon.h" />
     <ClInclude Include="InfiniteLevel.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="FlipbookPlayer.cpp" />
     <ClCompile Include="Force.cpp" />
+    <ClCompile Include="GameOverLevel.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="IdleMon.cpp" />
     <ClCompile Include="InfiniteLevel.cpp" />
