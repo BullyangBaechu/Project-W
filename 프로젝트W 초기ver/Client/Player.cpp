@@ -37,14 +37,17 @@ Player::Player()
 	, m_Level(1)
 	, m_exp(0.f)
 	, m_MaxHP(1)
+	, m_IsHit(false)
+	, m_HitTimer(0.f)
+	, m_HitDuration(0.4f)
 	//, m_BlockLeft(false)
 	//, m_BlockRight(false)
 {
 	// Player의 Collider 컴포넌트개 추가 및 값 설정	
 	m_HurtBox = AddComponent(new Collider);
 	m_HurtBox->SetName(L"HurtBox");
-	m_HurtBox->SetOffset(Vec2(-30.f, 0.f));
-	m_HurtBox->SetScale(Vec2(120.f, 192.f));
+	m_HurtBox->SetOffset(Vec2(-30.f, 40.f));
+	m_HurtBox->SetScale(Vec2(120.f, 120.f));
 
 	
 
@@ -65,6 +68,10 @@ Player::Player()
 	// CyborgGuard 등록
 	Flipbook* pFBGuard = AssetMgr::GetInst()->LoadFlipbook(L"CyborgGuard4x", L"Flipbook\\CyborgGuard4x.flip");
 	m_FBPlayer->AddFlipbook(pFBGuard, (int)PLAYER_ANIM::CYBORG_GUARD);
+
+	// 피격 등록
+	Flipbook* pFBHit = AssetMgr::GetInst()->LoadFlipbook(L"CyborgHit", L"Flipbook\\CyborgHit.flip");
+	m_FBPlayer->AddFlipbook(pFBHit, (int)PLAYER_ANIM::CYBORG_HIT);
 
 
 	// 수업때 쓴 임시 데이터들 (맨 마지막에 삭제)
@@ -108,6 +115,22 @@ void Player::Tick()
 {	
 
 	PlayerGetExp();
+
+	// 피격 애님 재생 후
+	if (m_IsHit)
+	{
+		m_HitTimer += DT;
+
+		if (m_HitTimer >= m_HitDuration)
+		{
+			m_IsHit = false;
+			m_HitTimer = 0.f;
+
+			// 원래 상태로 복귀
+			m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
+		}
+	}
+
 
 	// 충돌 시 사용할 이전 프레임 위치
 	m_PrevPos = GetPos();
@@ -312,7 +335,7 @@ void Player::PlayerGuard()
 
 	m_GuardCollider->SetName(L"GuardBox");
 	m_GuardCollider->SetOffset(Vec2(-40.f, -100.f));
-	m_GuardCollider->SetScale(Vec2(150.f,150.f));
+	m_GuardCollider->SetScale(Vec2(250.f,150.f));
 	//m_GuardCollider->SetColliderMode(ColliderType::Circle);
 	m_GuardCollider->SetEnable(true);
 
@@ -463,6 +486,21 @@ void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCo
 		m_IsInSlowzone = true;
 
 	}
+
+	else if (_OtherActor->GetName() == L"Bomb" && _Own == m_HurtBox && !m_IsHit)
+	{
+		m_MaxHP--;
+		m_IsHit = true;
+		m_HitTimer = 0.f;
+		m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_HIT, 10.f, 0, 1);
+
+		if (m_MaxHP == 0)
+		{
+			// GameOver 처리 (원하면 여기에)
+			// GameOver를 어케할지는 좀 더 고민해야됨
+		}
+
+	}
 }
 
 void Player::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)
@@ -470,10 +508,25 @@ void Player::Overlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollide
 	if (_OtherActor->GetName() == L"Slowzone")
 	{
 		Slowzone* slowzone = (Slowzone*)_OtherActor;
-		m_SpeedMultiplier = 0.95f;
+		m_SpeedMultiplier = 0.75f;
 		//m_SpeedMultiplier = slowzone->GetSlowRatio();
 
 		m_IsInSlowzone = true;
+	}
+
+	else if (_OtherActor->GetName() == L"Bomb" && _Own == m_HurtBox && !m_IsHit)
+	{
+		m_MaxHP--;
+		m_IsHit = true;
+		m_HitTimer = 0.f;
+		m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_HIT, 10.f, 0, 1);
+
+		if (m_MaxHP == 0)
+		{
+			// GameOver 처리 (원하면 여기에)
+			// GameOver를 어케할지는 좀 더 고민해야됨
+		}
+
 	}
 }
 

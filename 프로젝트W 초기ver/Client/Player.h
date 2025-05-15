@@ -22,6 +22,8 @@ enum class PLAYER_ANIM
     CYBORG_RUN,
     CYBORG_ATTACK,
     CYBORG_GUARD,
+    CYBORG_HIT,
+
 };
 
 
@@ -52,10 +54,14 @@ private:
 
     
     // Player 레벨 관련 스탯
-    int m_Level;
-    float m_exp;
-    int m_MaxHP;
-    int m_CurHP; // 안 쓸수도 있음
+    int             m_Level;
+    float           m_exp;
+    int             m_MaxHP;
+    
+    // 피격 판정 용
+    bool            m_IsHit;
+    float           m_HitTimer;
+    float           m_HitDuration;
 
 
     
@@ -76,7 +82,7 @@ public:
 
 private:
     void PlayerGetExp();
-    void Shoot();
+    //void Shoot();
     void PlayerAttack();
     void PlayerGuard();
     void ChangeFlipbook();
