@@ -3,6 +3,7 @@
 #include "Texture.h"
 
 class ProgressBarUI;
+class Sound;
 
 class RunningLevel :
     public Level
@@ -15,11 +16,16 @@ private:
 
     ProgressBarUI* m_ProgressBar;   // 진행도 게이지 UI
 
+    Sound* m_bgm;
 
     // GameOver 용
     bool m_IsGameOver;
     float m_GameOverTimer;
     
+    // GameClear 용
+    bool m_IsGameClear;
+    float m_GameClearTimer;
+
 
 public:
     virtual void Enter() override;

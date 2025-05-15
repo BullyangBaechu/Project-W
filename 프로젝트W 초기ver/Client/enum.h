@@ -8,6 +8,8 @@ enum class LEVEL_TYPE
 	TEST,
 	INFINITYMODE,
 	GAMEOVER,
+	GAMECLEAR,
+	HELP,
 
 	END,
 };
@@ -79,6 +81,7 @@ enum class ACTOR_TYPE
 	BOMB,
 	SLOWZONE,
 	EFFECT,
+	ESCAPE,
 
 
 

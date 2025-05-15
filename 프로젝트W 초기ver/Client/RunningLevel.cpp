@@ -15,6 +15,7 @@
 #include "Brick.h"
 #include "Bomb.h"
 #include "BackGround.h"
+#include "EscapeObject.h"
 
 #include "TimeMgr.h"
 #include "CollisionMgr.h"
@@ -25,11 +26,14 @@
 
 #include "SimpleBarUI.h"
 #include "ProgressBarUI.h"
+#include "Sound.h"
 
 RunningLevel::RunningLevel()
-	: m_GoalX(210000.f)
+	: m_GoalX(10000.f)
 	, m_IsGameOver(false)
 	, m_GameOverTimer(0.f)
+	, m_IsGameClear(false)
+	, m_GameClearTimer(0.f)
 {
 }
 
@@ -42,7 +46,15 @@ void RunningLevel::Enter()
 	// 재도전 진입
 	m_IsGameOver = false;
 	m_GameOverTimer = 0.f;
-	
+	m_IsGameClear = false;
+	m_GameClearTimer = 0.f;
+
+	// BGM 생성
+	m_bgm = AssetMgr::GetInst()->LoadSound(L"RunningBGM", L"Sound\\RunningBGM.wav");
+	m_bgm->PlayToBGM(true);
+
+
+
 	Actor* pActor = nullptr;
 
 	// 카메라 LookAt 설정
@@ -86,6 +98,14 @@ void RunningLevel::Enter()
 	AddObject(ACTOR_TYPE::PLAYER, pActor);
 	RegisterAsPlayer(pActor);
 
+	// EscapeObject 생성
+	pActor = new EscapeObject;
+	pActor->SetName(L"EscapeObject");
+	pActor->SetPos(Vec2(m_GoalX + 100.f, 600.f));
+	pActor->SetScale(Vec2(200.f, 400.f));
+	AddObject(ACTOR_TYPE::ESCAPE, pActor);
+
+
 	// SpawnMgr 불러오기
 	SpawnMgr::GetInst()->Init();
 
@@ -103,7 +123,7 @@ void RunningLevel::Enter()
 
 	// 진행도 UI
 	m_ProgressBar = new ProgressBarUI;
-	m_ProgressBar->SetPos(Vec2(600.f, 20.f));
+	m_ProgressBar->SetPos(Vec2(520.f, 20.f));
 	AddObject(ACTOR_TYPE::UI, m_ProgressBar);
 
 	SimpleBarUI* backbar = new SimpleBarUI;
@@ -155,25 +175,52 @@ void RunningLevel::Tick()
 		return; // 게임 오버 상태에서는 나머지 로직 멈춤
 	}
 
+	// GameClear 처리
+    if (m_IsGameClear)
+    {
+        m_GameClearTimer += DT;
+        if (m_GameClearTimer >= 2.f)
+        {
+            ChangeLevel(LEVEL_TYPE::GAMECLEAR);
+            return;
+        }
+    }
+
 
 	Level::Tick();
 
 	// SpawnMgr 로직 시작
 	SpawnMgr::GetInst()->Tick();
 
-	// 카메라 자동 이동
+
+
+	// GoalX 도달 체크
+	if (!m_IsGameClear)
+	{
+		Actor* pPlayer = GetPlayer();
+		if (pPlayer && pPlayer->GetPos().x >= m_GoalX)
+		{
+			m_IsGameClear = true;
+			m_GameClearTimer = 0.f;
+		}
+	}
+
+	
+	// 카메라 자동 이동 (GoalX 도달하면 이동 중지)
+	if (!m_IsGameClear && !m_bFirstFrame)
+	{
+		Vec2 cam = Camera::GetInst()->GetLookAt();
+		float CamSpeed = Camera::GetInst()->GetCamSpeed();
+		cam.x += CamSpeed * DT;
+		Camera::GetInst()->SetLookAt(cam);
+	}
 
 	if (m_bFirstFrame)
 	{
 		m_bFirstFrame = false;
 		return;  // 첫 프레임은 카메라 이동하지 않음
 	}
-
-	Vec2 cam = Camera::GetInst()->GetLookAt();
-	float CamSpeed = Camera::GetInst()->GetCamSpeed();
-	cam.x += CamSpeed * DT; 
-	Camera::GetInst()->SetLookAt(cam);
-
+	
 	float halfResX = Engine::GetInst()->GetResolution().x / 2.f;
 	float groundWidth = 1440.f;
 
@@ -195,14 +242,11 @@ void RunningLevel::Tick()
 
 
 	// GameOver 조건 체크
-	//if (m_Player->GetPos().x < -50.f || m_Player->IsDead())
 	Vec2 camPos = Camera::GetInst()->GetLookAt();
 	Vec2 res = Engine::GetInst()->GetResolution();
 
 	Player* pPlayer = dynamic_cast<Player*>(GetPlayer());
 	Vec2 playerPos = pPlayer->GetPos() - camPos + res / 2.f;
-
-	
 
 	if(playerPos.x <-50.f || pPlayer->GetHP() <= 0)
 	{
@@ -233,6 +277,52 @@ void RunningLevel::Render(HDC _dc)
 {
 
 	Level::Render(_dc);
+
+	// === Player HUD 조작법 안내 ===
+
+	const wchar_t* guardText = L"SHIFT  : 가드";
+	const wchar_t* attackText = L"CTRL   : 공격";
+	const wchar_t* jumpText = L"SPACE : 점프";
+
+	HFONT hHudFont = CreateFont(
+		25, 0, 0, 0,
+		FW_NORMAL,
+		FALSE, FALSE, FALSE,
+		HANGUL_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_SWISS,
+		L"맑은 고딕" 
+	);
+
+	HFONT hOldFont = (HFONT)SelectObject(_dc, hHudFont);
+
+	SetTextColor(_dc, RGB(150, 255, 0)); 
+	SetBkMode(_dc, TRANSPARENT);
+
+	Vec2 res = Engine::GetInst()->GetResolution();
+
+	int paddingLeft = 20;
+	int paddingBottom = 20;
+
+	// 맨 아래에서 위로 올라오면서 찍기 
+	SIZE textSize;
+
+	// SPACE : 점프 (맨 아래)
+	GetTextExtentPoint32(_dc, jumpText, wcslen(jumpText), &textSize);
+	TextOut(_dc, paddingLeft, (int)(res.y - paddingBottom - textSize.cy), jumpText, wcslen(jumpText));
+
+	// CTRL : 공격
+	GetTextExtentPoint32(_dc, attackText, wcslen(attackText), &textSize);
+	TextOut(_dc, paddingLeft, (int)(res.y - paddingBottom - textSize.cy * 2), attackText, wcslen(attackText));
+
+	// SHIFT : 가드
+	GetTextExtentPoint32(_dc, guardText, wcslen(guardText), &textSize);
+	TextOut(_dc, paddingLeft, (int)(res.y - paddingBottom - textSize.cy * 3), guardText, wcslen(guardText));
+
+	SelectObject(_dc, hOldFont);
+	::DeleteObject(hHudFont);
 
 	if (m_IsGameOver)
 	{
@@ -274,6 +364,45 @@ void RunningLevel::Render(HDC _dc)
 		SelectObject(_dc, hOldFont);
 		::DeleteObject(hFont);
 
+	}
+
+	if (m_IsGameClear)
+	{
+		const wchar_t* clearText = L"ESCAPE SUCCESS";
+
+		HFONT hFont = CreateFont(
+			150, 
+			0, 
+			0, 0, 
+			FW_HEAVY, 
+			FALSE, 
+			FALSE, 
+			FALSE,
+			HANGUL_CHARSET, 
+			OUT_DEFAULT_PRECIS, 
+			CLIP_DEFAULT_PRECIS, 
+			DEFAULT_QUALITY,
+			DEFAULT_PITCH | FF_SWISS, 
+			L"Optimus Princeps"
+		);
+
+		HFONT hOldFont = (HFONT)SelectObject(_dc, hFont);
+
+		SetTextColor(_dc, RGB(0, 255, 127));
+		SetBkMode(_dc, TRANSPARENT);
+
+		SIZE textSize;
+		GetTextExtentPoint32(_dc, clearText, wcslen(clearText), &textSize);
+
+		int centerX = (1440 - textSize.cx) / 2;
+		// Y축 원하는 값으로 OffSet 설정
+		int offsetY = -200;
+		int centerY = (1080 - textSize.cy) / 2 + offsetY;
+
+		TextOut(_dc, centerX, centerY, clearText, wcslen(clearText));
+
+		SelectObject(_dc, hOldFont);
+		::DeleteObject(hFont);
 	}
 
 }

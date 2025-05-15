@@ -5,6 +5,7 @@
 #include "LevelMgr.h"
 #include "KeyMgr.h"
 #include "RunningLevel.h"
+#include "Sound.h"
 
 GameOverLevel::GameOverLevel()
 {
@@ -17,7 +18,9 @@ GameOverLevel::~GameOverLevel()
 
 void GameOverLevel::Enter()
 {
-    OutputDebugString(L"[DEBUG] GameOverLevel::Enter() 호출됨\n");
+    //OutputDebugString(L"[DEBUG] GameOverLevel::Enter() 호출됨\n");
+    m_bgm = AssetMgr::GetInst()->LoadSound(L"GameOverBGM", L"Sound\\GameOverBGM.wav");
+    m_bgm->PlayToBGM(true);
 }
 
 void GameOverLevel::Tick()
@@ -28,7 +31,7 @@ void GameOverLevel::Tick()
     // 게임 재시작
     if (KEY_TAP(KEY::ENTER))
     {
-        OutputDebugString(L"[DEBUG] Enter 눌림 - RunningLevel로 전환 시도\n");
+        //OutputDebugString(L"[DEBUG] Enter 눌림 - RunningLevel로 전환 시도\n");
 
         ChangeLevel(LEVEL_TYPE::RUNNING);
     }

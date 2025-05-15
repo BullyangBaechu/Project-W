@@ -22,7 +22,34 @@ BtnUI::~BtnUI()
 
 void BtnUI::Tick_UI()
 {
+	/*
+	Vec2 mousePos = KeyMgr::GetInst()->GetMousePos();
+	Vec2 btnPos = GetFinalPos();
+	Vec2 btnScale = GetScale();
 
+	RECT rc = {
+		(int)btnPos.x,
+		(int)btnPos.y,
+		(int)(btnPos.x + btnScale.x),
+		(int)(btnPos.y + btnScale.y)
+	};
+
+	POINT ptMouse = { (int)mousePos.x, (int)mousePos.y };
+
+	if (PtInRect(&rc, ptMouse))
+	{
+		BeginHover();
+
+		if (KeyMgr::GetInst()->GetKeyState(KEY_TYPE::LBUTTON) == KEY_STATE::TAP)
+		{
+			LbtnClicked();
+		}
+	}
+	else
+	{
+		EndHover();
+	}
+	*/
 }
 
 void BtnUI::Render_UI(HDC _dc)

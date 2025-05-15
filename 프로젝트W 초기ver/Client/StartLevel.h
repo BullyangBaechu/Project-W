@@ -2,13 +2,14 @@
 #include "Level.h"
 
 class Texture;
+class Sound;
 
 class StartLevel :
     public Level
 {
 private:
     Texture* m_tex;
-
+    Sound* m_bgm;
 
 public:
     virtual void Tick() override;

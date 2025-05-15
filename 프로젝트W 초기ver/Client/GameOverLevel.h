@@ -2,12 +2,14 @@
 #include "Level.h"
 
 class Texture;
+class Sound;
 
 class GameOverLevel :
     public Level
 {
 private:
     Texture* m_tex;
+    Sound* m_bgm;
 
 public:
     virtual void Enter() override;

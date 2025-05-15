@@ -8,6 +8,8 @@
 #include "TestLevel.h"
 #include "InfiniteLevel.h"
 #include "GameOverLevel.h"
+#include "GameClearLevel.h"
+#include "HelpLevel.h"
 #include "Camera.h"
 
 
@@ -32,6 +34,8 @@ void LevelMgr::Init()
 	m_AllLevel[(UINT)LEVEL_TYPE::TEST] = new TestLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::INFINITYMODE] = new InfiniteLevel;
 	m_AllLevel[(UINT)LEVEL_TYPE::GAMEOVER] = new GameOverLevel;
+	m_AllLevel[(UINT)LEVEL_TYPE::GAMECLEAR] = new GameClearLevel;
+	m_AllLevel[(UINT)LEVEL_TYPE::HELP] = new HelpLevel;
 
 	::ChangeLevel(LEVEL_TYPE::START);
 }

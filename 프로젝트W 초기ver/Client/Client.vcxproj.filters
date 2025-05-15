@@ -172,8 +172,17 @@
     <Filter Include="Game\4. Actor\UI\FillBar">
       <UniqueIdentifier>{fd7c6c5d-97cd-49e3-bc51-c9ef11781b01}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\3. Level\03.GameOverLevel">
+    <Filter Include="Game\3. Level\04. GameClearLevel">
+      <UniqueIdentifier>{af89d073-0941-4aaa-ad38-fa92c8df9e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\3. Level\03. GameOverLevel">
       <UniqueIdentifier>{2268761d-dba0-481b-a8f6-d0a872b34e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\3. Level\05. HelpLevel">
+      <UniqueIdentifier>{c183d2bb-79d3-4c6b-a990-7a11faa465d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\4. Actor\EscapeObject">
+      <UniqueIdentifier>{1d6b6e3b-7d96-40a5-99ce-70cef690155e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -361,7 +370,16 @@
       <Filter>Game\4. Actor\UI\FillBar</Filter>
     </ClInclude>
     <ClInclude Include="GameOverLevel.h">
-      <Filter>Game\3. Level\03.GameOverLevel</Filter>
+      <Filter>Game\3. Level\03. GameOverLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="GameClearLevel.h">
+      <Filter>Game\3. Level\04. GameClearLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="HelpLevel.h">
+      <Filter>Game\3. Level\05. HelpLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="EscapeObject.h">
+      <Filter>Game\4. Actor\EscapeObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -546,7 +564,16 @@
       <Filter>Game\4. Actor\UI\FillBar</Filter>
     </ClCompile>
     <ClCompile Include="GameOverLevel.cpp">
-      <Filter>Game\3. Level\03.GameOverLevel</Filter>
+      <Filter>Game\3. Level\03. GameOverLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="GameClearLevel.cpp">
+      <Filter>Game\3. Level\04. GameClearLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="HelpLevel.cpp">
+      <Filter>Game\3. Level\05. HelpLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="EscapeObject.cpp">
+      <Filter>Game\4. Actor\EscapeObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

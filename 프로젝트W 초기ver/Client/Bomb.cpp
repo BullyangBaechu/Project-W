@@ -107,7 +107,7 @@ void Bomb::Render(HDC _dc)
             RGB(255, 255, 255)); // 여백 투명
     }
 
-    Actor::Render(_dc); // 디버그용 박스
+    //Actor::Render(_dc); // 디버그용 박스
 }
 
 void Bomb::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCollider)

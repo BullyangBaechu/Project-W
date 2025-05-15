@@ -251,7 +251,7 @@ void Player::PlayerGetExp()
 		m_exp += distance;
 	}
 
-	static float expThresholds[5] = { 0.f, 10000.f, 50000.f, 100000.f, 160000.f };
+	static float expThresholds[5] = { 0.f, 3000.f, 7000.f, 12000.f, 16000.f };
 
 	while (m_Level < 5 && m_exp >= expThresholds[m_Level])
 	{
@@ -365,17 +365,7 @@ void Player::ChangeFlipbook()
 	// 항상 오른쪽으로 달리게끔
 	m_FBPlayer->Play((int)PLAYER_ANIM::CYBORG_RUN, 12.f, 0, 0);
 
-	/*
-	if (KEY_TAP(KEY::LEFT))
-		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_LEFT, 15.f);
-	if (KEY_TAP(KEY::RIGHT))
-		m_FBPlayer->Play((int)PLAYER_ANIM::MOVE_RIGHT, 15.f);
-
-	if (KEY_RELEASED(KEY::LEFT))
-		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_LEFT, 5.f);
-	if (KEY_RELEASED(KEY::RIGHT))
-		m_FBPlayer->Play((int)PLAYER_ANIM::IDLE_RIGHT, 5.f);
-	*/
+	
 }
 
 
@@ -452,39 +442,7 @@ void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCo
 		m_RigidBody->CollisionResponse(this, _OtherActor);
 		
 		
-		/*
-		Vec2 MyPos = GetPos();
-		Vec2 OtherPos = _OtherActor->GetPos();
-
-		Vec2 MyScale = GetScale();
-		Vec2 OtherScale = _OtherActor->GetScale();
-
-		Vec2 delta = OtherPos - MyPos;
-
-		// X 축 겹침 길이 vs Y 축 겹침 길이를 통해 X축에서 충돌난건지 Y축에서 충돌난건지 check
-		float overlapX = (MyScale.x + OtherScale.x) / 2.f - abs(delta.x);
-		float overlapY = (MyScale.y + OtherScale.y) / 2.f - abs(delta.y);
-
-		// X 축에서 충돌났을때만 좌우 Force를 막아야하니까
-		/*
-		if (overlapX < overlapY)
-		{
-			if (delta.x > 0.f)
-				m_BlockRight = true;
-			else
-				m_BlockLeft = true;
-		}
-		/* 스펙 변경에 따라 y축 충돌 여부가 없어짐
-		else
-		{
-			if (delta.y > 0.f)
-			{
-				// 수직 방향 충돌이며, 내가 위에 있음 → 착지로 간주
-				m_RigidBody->SetGround(true);
-				// 단, 이때 충돌 박스가 충분히 안쪽에 들어왔는지도 확인하면 더 좋음
-			}
-		}
-		*/
+		
 		if (m_AttackCollider && m_AttackCollider->IsEnable())
 		{
 			Vec2 velocity = m_RigidBody->GetVelocity();
