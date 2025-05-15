@@ -39,6 +39,10 @@ RunningLevel::~RunningLevel()
 
 void RunningLevel::Enter()
 {
+	// 재도전 진입
+	m_IsGameOver = false;
+	m_GameOverTimer = 0.f;
+	
 	Actor* pActor = nullptr;
 
 	// 카메라 LookAt 설정

@@ -68,6 +68,7 @@ Actor* LevelMgr::GetPlayer()
 
 void LevelMgr::ChangeLevel(LEVEL_TYPE _Next)
 {
+
 	assert(m_AllLevel[(UINT)_Next] != m_CurLevel);
 
 	if (m_CurLevel)

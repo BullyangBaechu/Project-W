@@ -17,13 +17,19 @@ GameOverLevel::~GameOverLevel()
 
 void GameOverLevel::Enter()
 {
+    OutputDebugString(L"[DEBUG] GameOverLevel::Enter() 호출됨\n");
 }
 
 void GameOverLevel::Tick()
 {
+
+    //Level::Tick();
+
     // 게임 재시작
     if (KEY_TAP(KEY::ENTER))
     {
+        OutputDebugString(L"[DEBUG] Enter 눌림 - RunningLevel로 전환 시도\n");
+
         ChangeLevel(LEVEL_TYPE::RUNNING);
     }
 
@@ -85,7 +91,7 @@ void GameOverLevel::Render(HDC _dc)
     int centerX = (1440 - textSize.cx) / 2;
 
     // Y 좌표를 상단 중앙으로 
-    int posY = 70;
+    int posY = 50;
 
     // 텍스트 출력
     TextOut(_dc, centerX, posY, gameOverText, wcslen(gameOverText));

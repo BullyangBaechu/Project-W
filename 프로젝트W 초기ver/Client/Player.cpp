@@ -372,7 +372,7 @@ void Player::Render(HDC _dc)
 
 	// ====== 폰트 설정 ======
 	HFONT hFont = CreateFont(
-		30,                // Height (크게 하고 싶으면 숫자 올리면 됨)
+		20,                // Height (크게 하고 싶으면 숫자 올리면 됨)
 		0,                 // Width (0이면 Height 기준 자동 조절)
 		0,                 // Escapement
 		0,                 // Orientation
@@ -396,18 +396,21 @@ void Player::Render(HDC _dc)
 	// ====== HUD: 레벨/경험치 표시 ======
 
 	// 문자열 만들기
-	wchar_t szText[128] = {};
-	swprintf_s(szText, L"Lv : %d Dmg : %d LifeCount : %d", m_Level, m_Dmg, m_MaxHP);
+	wchar_t szLv[128] = {};
+	swprintf_s(szLv, L"Lv : %d", m_Level);
 
-	// 출력 위치 (좌상단 기준)
 	Vec2 screenPos = Vec2(10.f, 10.f);
 
-	// SetBkMode를 통해 배경 투명하게
 	SetBkMode(_dc, TRANSPARENT);
-
-	// 검은색 글자로 출력
 	SetTextColor(_dc, RGB(0, 0, 0));
-	TextOut(_dc, (int)screenPos.x, (int)screenPos.y, szText, (int)wcslen(szText));
+
+	TextOut(_dc, (int)screenPos.x, (int)screenPos.y, szLv, (int)wcslen(szLv));
+
+	// ====== Dmg, Life 한 줄 ======
+	wchar_t szStat[128] = {};
+	swprintf_s(szStat, L"Dmg : %d LifeCount : %d", m_Dmg, m_MaxHP);
+
+	TextOut(_dc, (int)screenPos.x, (int)(screenPos.y + 30.f), szStat, (int)wcslen(szStat));
 
 	// ====== HUD: 속도 표시 (디버그 용) ======
 	Vec2 velocity = m_RigidBody->GetVelocity();

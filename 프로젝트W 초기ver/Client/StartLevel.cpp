@@ -12,11 +12,13 @@
 #include "TileActor.h"
 #include "Ground.h"
 
+#include "AssetMgr.h"
 #include "CollisionMgr.h"
 #include "Camera.h"
 
 StartLevel::StartLevel()
 {
+	m_tex = AssetMgr::GetInst()->LoadTexture(L"GameOver", L"Texture\\GameOverFactory_1440x1080.bmp");
 }
 
 StartLevel::~StartLevel()
@@ -37,34 +39,21 @@ void StartLevel::Tick()
 		ChangeLevel(LEVEL_TYPE::RUNNING);
 	}
 
-	if (KEY_TAP(KEY::F4))
+	if (KEY_TAP(KEY::F5))
 	{
 		ChangeLevel(LEVEL_TYPE::TEST);
 	}
-
-	if (KEY_TAP(KEY::F8))
-	{
-		ChangeLevel(LEVEL_TYPE::INFINITYMODE);
-	}
-
-	// 마우스 왼클릭이 발생하면, 해당위치에 Force 객체를 생성시킴
-	if (KEY_TAP(KEY::LBTN))
-	{
-		Force* pForce = new Force;		
-		// 마우스를 클릭한 지점의 실제 좌표를 계산해서 배치
-		pForce->SetPos(Camera::GetInst()->GetRealPos(KeyMgr::GetInst()->GetMousePos()));
-		pForce->SetDuration(0.05f);
-		pForce->SetForceScale(1000000.f);
-		pForce->SetRange(300.f);
-		pForce->SetActorType(ACTOR_TYPE::PLAYER, true);
-		pForce->SetActorType(ACTOR_TYPE::ENERMY, true);
-		CreateActor(ACTOR_TYPE::FORCE, pForce);
-	}
+	
 }
 
 void StartLevel::Exit()
 {
 	DeleteAllObject();
+}
+
+void StartLevel::Render(HDC _dc)
+{
+
 }
 
 
