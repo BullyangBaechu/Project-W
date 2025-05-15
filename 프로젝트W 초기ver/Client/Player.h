@@ -84,6 +84,7 @@ public:
 private:
     void PlayerGetExp();
     //void Shoot();
+    void PlayerJump();
     void PlayerAttack();
     void PlayerGuard();
     void ChangeFlipbook();

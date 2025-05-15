@@ -39,7 +39,7 @@ Player::Player()
 	, m_MaxHP(1)
 	, m_IsHit(false)
 	, m_HitTimer(0.f)
-	, m_HitDuration(0.4f)
+	, m_HitDuration(1.f)
 	//, m_BlockLeft(false)
 	//, m_BlockRight(false)
 {
@@ -186,9 +186,11 @@ void Player::Tick()
 	if (KEY_TAP(KEY::SPACE))
 	{
 		//Shoot();
-		m_RigidBody->Jump();
+		PlayerJump();
 		//Camera::GetInst()->AddFadeOut(0.4f);
 		//Camera::GetInst()->AddFadeIn(0.4f);
+		
+
 	}
 	//m_FBPlayer->FinalTick();
 	
@@ -264,6 +266,18 @@ void Player::PlayerGetExp()
 		}
 	}
 
+}
+void Player::PlayerJump()
+{
+	
+	m_RigidBody->Jump();
+	/*
+	EffectActor* pEffect = new EffectActor;
+	pEffect->SetEffect(nullptr, 0.3f, AssetMgr::GetInst()->FindSound(L"jumpsound")); 
+	pEffect->SetPos(GetPos());
+	Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
+	*/
 }
 // 안 쓰면 삭제 예정
 /*
@@ -471,11 +485,21 @@ void Player::BeginOverlap(Collider* _Own, Actor* _OtherActor, Collider* _OtherCo
 			}
 		}
 		*/
+		if (m_AttackCollider && m_AttackCollider->IsEnable())
+		{
+			Vec2 velocity = m_RigidBody->GetVelocity();
+			//velocity.y 
+			m_RigidBody->SetVelocity(velocity);
 
-		Vec2 velocity = m_RigidBody->GetVelocity();
-		//velocity.y 
-		m_RigidBody->SetVelocity(velocity);
-		
+			Vec2 AttackPos = GetPos() + m_AttackCollider->GetOffset() + Vec2(30.f, 0.f);
+
+			EffectActor* pEffect = new EffectActor;
+
+			pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"hiteffect"), 0.3f, AssetMgr::GetInst()->FindSound(L"hitsound"));
+			pEffect->SetPos(AttackPos);
+			Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
+			pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
+		}
 
 	
 	}

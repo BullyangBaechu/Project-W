@@ -69,7 +69,7 @@ void Brick::StartDestroy()
 	EffectActor* pEffect = new EffectActor;
 
 
-	pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"explosion2"), 0.3f, nullptr); // 사운드 생략하려면 nullptr
+	pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"explosion2"), 0.3f, AssetMgr::GetInst()->FindSound(L"brickdestroy")); // 사운드 생략하려면 nullptr
 	pEffect->SetPos(GetPos());
 	Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
 	pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);

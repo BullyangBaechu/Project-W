@@ -4,6 +4,10 @@
 #include "TimeMgr.h"
 #include "Actor.h"
 #include "Collider.h"
+#include "EffectActor.h"
+#include "AssetMgr.h"
+#include "LevelMgr.h"
+#include "Level.h"
 
 
 RigidBody::RigidBody()
@@ -34,7 +38,11 @@ void RigidBody::Jump()
 	IsJump = true;
 	//m_GravityVelocity += -Vec2(0.f, m_JumpSpeed);
 	m_GravityVelocity    = -Vec2(0.f, m_JumpSpeed);
-
+	EffectActor* pEffect = new EffectActor;
+	pEffect->SetEffect(nullptr, 0.3f, AssetMgr::GetInst()->FindSound(L"jumpsound"));
+	//pEffect->SetPos(GetPos());
+	Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
+	pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
 	++m_CurJumpStack;
 }
 

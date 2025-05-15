@@ -20,7 +20,7 @@ void Bomb::Init()
 	m_Collider->SetScale(Vec2(80.f, 80.f)); // 테스트 용
     m_Collider->SetEnable(true);
 	// m_Collider->SetScale(GetScale()); -> 텍스쳐 넣으면 이거 쓰기
-    m_speed = 600.f;
+    m_speed = 900.f;
 
 
     // 파괴 용
@@ -75,7 +75,7 @@ void Bomb::StartDestroy()
     EffectActor* pEffect = new EffectActor;
 
 
-    pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"explosion"), 0.3f,  nullptr); // 사운드 생략하려면 nullptr
+    pEffect->SetEffect(AssetMgr::GetInst()->FindTexture(L"explosion"), 0.3f, AssetMgr::GetInst()->FindSound(L"bombdestroy")); // 사운드 생략하려면 nullptr
     pEffect->SetPos(GetPos());
     Level* pLevel = LevelMgr::GetInst()->GetCurrentLevel();
     pLevel->AddObject(ACTOR_TYPE::EFFECT, pEffect);
