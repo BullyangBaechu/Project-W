@@ -78,6 +78,7 @@ public:
 
     int GetPlayerDmg() { return m_Dmg; }
     int GetHP() { return m_MaxHP; }
+    int GetLevel() { return m_Level; }
 
     virtual bool CamCheck() override;
 

@@ -101,7 +101,7 @@ void RunningLevel::Enter()
 	// EscapeObject 생성
 	pActor = new EscapeObject;
 	pActor->SetName(L"EscapeObject");
-	pActor->SetPos(Vec2(m_GoalX + 100.f, 600.f));
+	pActor->SetPos(Vec2(m_GoalX + 400.f, 600.f));
 	pActor->SetScale(Vec2(200.f, 400.f));
 	AddObject(ACTOR_TYPE::ESCAPE, pActor);
 

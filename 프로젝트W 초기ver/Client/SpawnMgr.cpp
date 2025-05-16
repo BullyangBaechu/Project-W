@@ -9,6 +9,7 @@
 #include "TimeMgr.h"
 #include "Camera.h"
 #include "Engine.h"
+#include "Player.h"
 
 SpawnMgr::SpawnMgr()
 {
@@ -42,8 +43,18 @@ void SpawnMgr::Tick()
 
     if (m_StageMode == STAGEMODE::RUN && m_DifficultyTime >= 5.f)
     {
-        m_DifficultyTime = 0.2f;
-        m_SpawnDelay -= m_DelayDescreaseTime;
+        int playerLevel = 1;
+
+        Player* player = dynamic_cast<Player*>(LevelMgr::GetInst()->GetPlayer());
+        if (player != nullptr)
+        {
+            playerLevel = player->GetLevel();
+        }
+
+        float levelFactor = 1.f + (playerLevel - 1) * 0.05f;  // 레벨 2면 1.2배, 레벨 5면 1.8배
+
+        m_SpawnDelay -= m_DelayDescreaseTime * levelFactor;
+        
 
         // 스폰 간격 최소까지만 낮추기
         if (m_SpawnDelay < m_MinSpawnDelay)
