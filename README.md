@@ -5,6 +5,7 @@ Unity/Unreal의 구조를 참고해 Scene, Object, Component, Manager 시스템�
 처음부터 끝까지 직접 구현한 개인 연구 프로젝트입니다.
 
 🚀 Features
+
 ✔ Custom Engine Core
 
 Game Loop (Engine → Core → Scene)
@@ -66,3 +67,7 @@ Object/Component Architecture
 Custom Rendering Pipeline
 
 STL
+
+📜 License
+
+개인 학습 및 포트폴리오 목적으로 제작되었습니다.
