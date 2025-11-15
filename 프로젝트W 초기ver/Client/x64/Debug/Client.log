@@ -1,34 +1,40 @@
-﻿  RunningLevel.cpp
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(313,44): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(314,88): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(317,46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(318,94): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(321,45): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(322,93): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(355,49): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(362,54): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(395,46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\Client\RunningLevel.cpp(402,51): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
-  
-  SpawnMgr.cpp
+﻿  BackGround.cpp
+  RunningLevel.cpp
   코드를 생성하고 있습니다...
-  Client.vcxproj -> C:\Users\gogof\OneDrive\Desktop\프로젝트W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\BackGround.cpp(48,17): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/BackGround.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\BackGround.cpp(49,17): warning C4244: '초기화 중': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/BackGround.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(313,44): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(314,88): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(317,46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(318,94): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(321,45): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(322,93): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(355,49): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(362,54): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(395,46): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\Client\RunningLevel.cpp(402,51): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 '/RunningLevel.cpp'을(를) 컴파일하는 중)
+  
+  Client.vcxproj -> C:\Users\gogof\OneDrive\Desktop\프로젝트 W\Project-W\프로젝트W 초기ver\OutputFile\Bin\MyGame_D.exe

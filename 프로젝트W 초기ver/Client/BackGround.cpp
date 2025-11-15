@@ -72,14 +72,5 @@ void BackGround::Render(HDC _dc)
                 (int)h,
                 RGB(255, 0, 255));
         }
-        
-
-
-        
-
-
-        //TransparentBlt(_dc,(int)(renderPos.x - w / 2.f),(int)(renderPos.y - h / 2.f),(int)w,(int)h,m_Tex->GetDC(),0, 0,(int)w,(int)h, RGB(255, 0, 255));
     }
-
-    //Actor::Render(_dc);
 }

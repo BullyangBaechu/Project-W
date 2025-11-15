@@ -29,7 +29,7 @@
 #include "Sound.h"
 
 RunningLevel::RunningLevel()
-	: m_GoalX(10000.f)
+	: m_GoalX(210000.f)
 	, m_IsGameOver(false)
 	, m_GameOverTimer(0.f)
 	, m_IsGameClear(false)
